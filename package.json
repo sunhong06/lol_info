@@ -58,5 +58,6 @@
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1"
-  }
+  },
+  "homepage": "https://rlatjsghd123.github.io/lol_info"
 }
