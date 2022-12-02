@@ -1,0 +1,252 @@
+.record{
+    float: right;
+    width: 800px;
+    min-width: 800px;
+    margin: 1rem 0 0 0;
+    .record_list_lose{
+        background-color: #fff1f3;
+    }
+    .record_list{
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        background-color: #ecf2ff;
+        .game_info{
+            margin:0 1rem;
+            font-size: 0.9rem;
+            width: 92px;
+            div{
+                padding-bottom: 0.3rem;
+            }
+            .game_result{
+                font-weight: 600;
+                font-size: 0.8rem;
+                .win{
+                    color: #4B89DC;
+                }
+                .lose{
+                    color: #d31a45;
+                }
+            }
+        }
+        .my_info{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 270px;
+            margin-right: 5rem;
+            .champ_info{
+                display: flex;
+                align-items: center;
+                .champ_img{
+                    position: relative;
+                    width: 50px;
+                    height: 50px; 
+                    margin-right: 0.8rem; 
+                    img{
+                        width: 100%;
+                        border-radius: 50%;
+                    }
+                    .champ_level{
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        width: 15px;
+                        height: 15px;
+                        border-radius: 50%;
+                        background-color: #222;
+                        font-size: 0.5rem;
+                        color: #fff;
+                    }
+                }
+                .k_d_a{
+                    width: 150px;
+                    padding-right: 3rem;
+                    display: flex;
+                    flex-direction: column;
+                    .kda{
+                        width: auto;
+                        font-weight: bold;
+                        line-height: 1.5;
+                        .deaths{
+                            color: #d31a45;
+                        }
+                    }
+                    .kda_sum{
+                        font-size: 0.8rem;
+                        color: #758592;
+                    }
+                }
+                .stats{
+                    font-size: 12px;
+                    line-height: 1.5;
+                    color: #758592;
+                    .kill_invo{
+                        color: #d31a45;
+                    }
+                }
+            }
+        }
+        .items{
+            display: flex;
+            .item{
+                display: flex;
+                li{
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 5px;
+                    background-color: #758592;
+                    margin-right: 0.2rem;
+                    img{
+                        width: 100%;
+                        border-radius: 5px;
+                    }
+                }
+            }
+            .max_kills{
+                font-size: 0.8rem;
+                border-radius: 20px;
+                background-color: #d31a45;
+                padding: 0 5px;
+                color: #fff;
+            }
+        }
+        .summoners{
+            display: flex;
+            ul{
+                display: flex;
+                flex-direction: column;
+                margin-right: 10px;
+                li{
+                    width:110px;
+                    padding:0 5px;
+                    overflow:hidden;
+                    text-overflow:ellipsis;
+                    white-space:nowrap;
+                    a{
+                        font-size: 0.8rem;
+                    }
+                    img{
+                        vertical-align: middle;
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+            }
+        }
+        .ditails{
+            width: 70px;
+            height: 106px;
+            button{
+                width: 100%;
+                height: 100%;
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+//버튼클릭시 자세히보기 디테일
+.detail{
+    display: none;
+    .detail_box{
+        &:after{
+            content: "";
+            display: block;
+            width: 100%;
+            height: 80px;
+            background-color: #fff;               
+        }
+    table{
+        caption{
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: #f7f7f7;
+            border-radius: 5px;
+            margin-bottom: 4px;
+        }
+        &:first-child{
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+        &:last-child{
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+            width: 784px;
+            border-collapse:collapse;
+        thead{
+            background: #fff;
+            height: 30px;
+            tr{
+                font-size: 0.8rem;
+                font-weight: 500;
+                color: #758592;
+                th{
+                    text-align: center;
+                }
+            }
+        }
+        tbody{
+            color: #758592;
+            .s_name{
+                padding-left: 5px;
+                color: #222;
+            }
+            .win{
+                background: #ecf2ff;
+            }
+            .lose{
+                background: #fff1f3;
+            }
+            .detail_kda{
+
+                    .two{ color: #758592; font-weight: bold;}
+                    .three{ color: #00a399; font-weight: bold;}
+                    .four{ color: #0093ff; font-weight: bold;}
+                    .five{ color: #f06f00; font-weight: bold;}
+            }
+            td{
+                padding: 2px 0;
+                text-align: center;
+                font-size: 0.8rem;
+                line-height: 1;
+                &:first-child{
+                    text-align: left;
+                }
+                img{
+                    vertical-align: middle;
+                    width: 20px;
+                    height: 20px;
+                }
+                ul{
+                    li{
+                        width: 20px;
+                        height: 20px;
+                        background-color: #758592;
+                        img{
+                            vertical-align: middle;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+            .item{
+                display: flex;
+                justify-content: center;
+            }
+            .detail_kda{
+                display: flex;
+                flex-direction: column;
+            }
+            .damage{
+            padding: 0 5px;
+                .box{
+                    height: 8px;
+                    background-color: #4B89DC;
+                }  
+            }
+        }
+    }
+    }
+}

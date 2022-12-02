@@ -1,0 +1,24 @@
+main{
+    width: 100%;
+    .champion_title{
+     text-align: center;
+     margin-top: 50px;
+     font-size: 40px;
+    }
+     .champion_table{
+        width: 100%;
+         max-width: 1360px;
+         margin: 30px auto;
+         border-collapse: collapse;
+         tbody{
+             tr{
+                 td{
+                     width: 120px;
+                     height: 120px;
+                     border: 3px solid #222;
+                     text-align: center;
+                 }
+             }
+         }
+     }
+ }

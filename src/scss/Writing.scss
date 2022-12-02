@@ -1,0 +1,144 @@
+// writing.scss
+
+
+.writing_main{
+    position: relative;
+    max-width: 1360px;
+    margin: 0 auto;
+    display: flex;
+    .writing_category{
+        margin: 100px 50px 0 0;
+        flex: 1;
+        ul{
+            li{
+                a{
+                    position: relative;
+                    font-weight: bold;
+                    display: inline-block;
+                    font-size: 22px;
+                    padding: 20px 0 20px;
+                    &::after{
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        content: "";
+                        display: block;
+                        width: 100%;
+                        height: 5px;
+                        background-color: #61dafb;
+                        transform: scale(0,1);
+                        transition: all 0.2s linear 0s;
+                        transform-origin: left center;
+                    }
+                    &:hover::after{
+                        transform: scale(1);
+                    }
+                    &:hover{
+                        color: #61dafb;
+                    }
+                    
+                }
+            }
+        }
+    }
+    .writing_box{
+        margin-top: 50px;
+        flex: 5;
+        .article_info{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            background: #f9f9f9;
+            padding: 10px 20px;
+        }
+        .content_field{
+            position: relative;
+            height: 500px;
+            .options{
+                margin-top: 20px;
+            }
+            .recommendation{
+                position: absolute;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                button{
+                    margin-right: 8px;
+                    border: 1px solid #222;
+                    padding: 10px;
+                }
+            }
+            .click_bar{
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                button{
+                    margin-right: 8px;
+                }
+            }
+        }
+        .comment_box{
+            margin-top: 30px;
+          .comment_title{
+            font-size: 16px;
+            padding:0 0 10px 20px;
+          }
+          .comment_form{
+            width: 100%;
+            height: 100px;
+            background: #e9e9e9;
+            fieldset{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                input[type=text]{
+                    width: 85%;
+                    height: 70px;
+                }
+                input[type=submit]{
+                    width: 80px;
+                    height: 70px;
+                   border: none;
+                   background-color: #f9f9f9;
+                   cursor: pointer;
+                  margin-left: 20px;
+                }
+            }
+          }
+          .comment_list{
+            margin-top: 20px;
+                li{
+                    position: relative;
+                    padding: 20px 10px;
+                    border-top: 1px solid #e9e9e9;
+                    border-bottom: 1px solid #e9e9e9;
+                    span{
+                        padding-right: 10px;
+                    }
+                    p{
+                        padding: 10px 0;
+                    }
+                    button{
+                        padding: 10px;
+                        color: #8b8b8b;
+                    }
+                    button:hover{
+                        color: #222;
+                        text-decoration: underline;
+                    }
+                    .remove{
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                    }
+                    .reply{
+                        position: absolute;
+                        bottom: 10px;
+                        right: 10px;
+                    }
+                }
+          }
+        }
+    }
+}

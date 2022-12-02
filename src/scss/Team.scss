@@ -1,0 +1,17 @@
+.same_team{
+    width: 328px;
+    margin-top: 50px;
+    text-align: center;
+    float: left;
+    .same_team_title{
+        font-weight: bold;
+        line-height: 2;
+    }
+    thead{
+        th{
+            &:nth-child(1){
+                width: 60%;
+            }
+        }
+    }
+}
