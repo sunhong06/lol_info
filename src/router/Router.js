@@ -11,7 +11,7 @@ import '../scss/common.scss'
 
 function Router() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter  basename={process.env.PUBLIC_URL}>
         <Routes>
             <Route path='/' exact={true} element={<Home />} ></Route>
             <Route path='/SummonerInfo/:summonerName' element={<SummonerInfo />}></Route>

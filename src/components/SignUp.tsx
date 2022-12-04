@@ -39,7 +39,7 @@ function SignUp() {
     }
   return (
     <main className='signUp_main'>
-        <h1 onClick={()=>navigate("/")}><img src='/imgs/lol_logo.png' />LOL.info</h1>
+        <h1 onClick={()=>navigate("/")}><img src='imgs/lol_logo.png' />LOL.info</h1>
         <form onSubmit={onSubmit} className="signUp_form">
         <fieldset>
             <legend className='blind'>회원가입창</legend>
