@@ -20,7 +20,7 @@ function SumInfo({sData,Smr}:any) {
       }
       useEffect(()=>{
         getSummonerData();
-      },[])
+      },[search])
   return (
     <>
     {Smr.map((s:any)=>

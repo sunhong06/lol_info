@@ -25,7 +25,7 @@ function LeagueInfo({Smr}:any) {
     <div className='solo_rank_info'>
     <h2>개인랭크</h2>
     <div className='rank_info'>
-        <img src={`imgs/${summonerLeagueData[0]?.tier}.png`} alt={summonerLeagueData[0]?.tier} className="tier_img" />
+        <img src={`/imgs/${summonerLeagueData[0]?.tier}.png`} alt={summonerLeagueData[0]?.tier} className="tier_img" />
         <ul className='rank_info_list'>
         <li>티어 {summonerLeagueData[0]?.tier}  {summonerLeagueData[0]?.rank}</li>
         <li>승률 {summonerLeagueData[0]?.wins}W {summonerLeagueData[0]?.losses}L  <span className='win_rate'>{Math.round(summonerLeagueData[0]?.wins / (summonerLeagueData[0]?.wins + summonerLeagueData[0]?.losses) * 100)}%</span></li>
@@ -42,7 +42,7 @@ function LeagueInfo({Smr}:any) {
     <div className='team_rank_info'>
     <h2>자유랭크</h2>
     <div className='rank_info'>
-        <img src={`imgs/${summonerLeagueData[1]?.tier}.png`} alt={summonerLeagueData[1]?.tier} className="tier_img" />
+        <img src={`/imgs/${summonerLeagueData[1]?.tier}.png`} alt={summonerLeagueData[1]?.tier} className="tier_img" />
         <ul className='rank_info_list'>
         <li>티어 {summonerLeagueData[1]?.tier}  {summonerLeagueData[1]?.rank}</li>
         <li>승률 {summonerLeagueData[1]?.wins}W {summonerLeagueData[1]?.losses}L  <span className='win_rate'>{Math.round(summonerLeagueData[1]?.wins / (summonerLeagueData[1]?.wins + summonerLeagueData[1]?.losses) * 100)}%</span></li>

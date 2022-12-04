@@ -45,7 +45,7 @@ function Header() {
     </ul>
     <nav className='gnb'>
       <ul>
-          <li className='logo' onClick={()=>window.location.reload()}><Link to='/'><img src='imgs/lol_logo.png' />LoL.info</Link></li>
+          <li className='logo' onClick={()=>window.location.reload()}><Link to='/'><img src='/imgs/lol_logo.png' />LoL.info</Link></li>
           <li onClick={()=>window.location.reload()}><Link to='/'>홈</Link></li>
           <li><Link to='/Ranking'>랭킹</Link></li>
           <li><Link to='/Community'>커뮤니티</Link></li>

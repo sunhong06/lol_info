@@ -20,16 +20,17 @@ const onSearch = (e:React.ChangeEvent<HTMLInputElement>) =>{
   const searchForSummoner = (e:React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
     if(search != ""){
-      navigate(`/SummonerInfo`, {state:search});
+      navigate(`/SummonerInfo/${search}`,{state:search})
+      }
     }
-  }
+  
 
 
   return (
     <>
     <Header />
     <main className='home_main'>
-      <h1 className='home_title'><img src='imgs/lol_logo.png' />LOL.info</h1>
+      <h1 className='home_title'><img src='/imgs/lol_logo.png' />LOL.info</h1>
       <form className='home_form' onSubmit={searchForSummoner} >
           <fieldset>
             <legend className='blind'>소환사 검색창</legend>

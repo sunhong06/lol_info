@@ -6,15 +6,12 @@ import {FiChevronDown} from 'react-icons/fi';
 import { MatchInfo } from '../../../store/store'
 import '../../../scss/RecordInfo.scss'
 import { Link } from 'react-router-dom';
-import { current } from '@reduxjs/toolkit';
 
 function RecordInfo({matchState,matchsInfo,Smr}:any) {
-  const [wins,setWins] = useState() ;
-  const [onpage,setOnpage] = useState(true);
-  const Dref = useRef<any>();
+
+  
   const getMatchData = async() => {
     const match = await asiaLolAxios.get(`match/v5/matches/by-puuid/${Smr.map((s:any) =>s.smrData.puuid)}/ids`)
-    console.log(match);
     Promise.all([match]).then((res3)=>{
       res3[0].data.map(async(i:any)=>{
          const res = await asiaLolAxios.get(`match/v5/matches/${i}`);
@@ -42,7 +39,8 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
         <ul className='record'>
         {matchState.map((m:any)=>( 
           <>
-          <li className='record_list'>
+          {m.matchs.info.participants.map((p:any)=> p.summonerName === Smr[0].smrData.name ?
+          <li className={p.win ? 'record_list' : 'record_list_lose'}>
             <div className='game_info'>
               <div className='game_time'>{Math.round(m.matchs.info.gameDuration / 60)}분 {Math.round(m.matchs.info.gameDuration%60)}초</div>
               <div className='game_type'>
@@ -53,18 +51,11 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                 {m.matchs.info.queueId === 440 && "자유 5:5랭크"}
                 </div>
                 <div className='game_result'>
-                    {m.matchs.info.participants.map((p:any)=>p.summonerName === Smr[0].smrData.name ?
-                       p.win
-                       ?(
-                       <span className='win'>승리</span> 
-                        ):(
-                        <span className='lose'>패배</span> 
-                        ) 
-                        : null
-                    )}
+                  {p.win
+                ?<span className='win'>승리</span> : <span className='lose'>패배</span> 
+                }    
                 </div>
             </div>
-            {m.matchs.info.participants.map((p:any)=>p.summonerName === Smr[0].smrData.name &&
               <div className='my_info'>
                 <div className='champ_info'>
                   <div className='champ_img'>
@@ -98,24 +89,21 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                         <li>{p.item4 ?<img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item4}.png`} alt="item5" /> : undefined}</li>
                         <li>{p.item5 ?<img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item5}.png`} alt="item6" /> : undefined}</li>
                       </ul>
-                      <div className='max_kills'>
-                        {p.pentaKills > 0 ? "펜타킬" : 
-                        p.quadraKills > 0 ? "쿼드라킬" :
-                        p.tripleKills > 0 ? "트리플킬" : 
-                        p.doubleKills > 0 ? "더블킬" : null
+                        {p.pentaKills > 0 ?  <div className='max_kills'>펜타킬</div> : 
+                        p.quadraKills > 0 ?  <div className='max_kills'>쿼드라킬</div> :
+                        p.tripleKills > 0 ?  <div className='max_kills'>트리플킬</div> : 
+                        p.doubleKills > 0 ?  <div className='max_kills'>더블킬</div> : <div></div>
                         }
-                      </div>
                 </div>
               </div>
-            )}
             <div className='summoners'>
             <ul>
               {m.matchs.info.participants.map((p:any,index:number)=>( index > 4 ? 
                 <li>
-                  <Link to={'/'}>
+                  <a href={`/SummonerInfo/${p.summonerName}`} target="_blank" className="smr_link">
                   <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />
                   {p.summonerName}
-                  </Link>
+                  </a>
                   </li>
                   : undefined
               ))}
@@ -123,10 +111,10 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
               <ul>
               {m.matchs.info.participants.map((p:any,index:number)=>( index < 5 ? 
                 <li>
-                  <Link to={'/'}>
+                  <a href={`/SummonerInfo/${p.summonerName}`} className="smr_link">
                   <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />
                   {p.summonerName}
-                  </Link>
+                  </a>
                   </li>
                   : undefined
               ))}
@@ -137,23 +125,23 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                 <FiChevronDown />
               </button>
             </div>
-          </li>
+          </li> : null
+          )}
           <li className='detail'>
-              <div className='detail_box' ref={Dref}>
-
+              <div className='detail_box'>
               <table>
                 <colgroup>
-                <col width="185" />
-                <col width="100" />
-                   <col width="85" />
-                   <col width="85" />
-                   <col width="80" />
-                   <col width="40" />
+                  <col width="185" />
+                  <col width="100" />
+                  <col width="85" />
+                  <col width="85" />
+                  <col width="80" />
+                  <col width="40" />
                 </colgroup>
                 <caption>종합</caption>
               <thead>
                 <tr>
-                  <th >{m.matchs.info.participants.map((p:any)=> p.summonerName === Smr[0].smrData.name ? p.win ? "승리팀" : "패배팀" : null)}</th>
+                  <th >{m.matchs.info.participants.map((p:any)=> p.summonerName === Smr[0].smrData.name ? p.win ? "패배팀" : "승리팀" : null)}</th>
                   <th>KDA</th>
                   <th colSpan={2}>피해량</th>
                   <th>골드</th>
@@ -205,7 +193,7 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                 </colgroup>
                 <thead>
                 <tr>
-                  <th >{m.matchs.info.participants.map((p:any)=> p.summonerName === Smr[0].smrData.name ? p.win ? "패배팀" : "승리팀" : null )}</th>
+                  <th >{m.matchs.info.participants.map((p:any)=> p.summonerName === Smr[0].smrData.name ? p.win ? "승리팀" : "패배팀" : null )}</th>
                   <th>KDA</th>
                   <th colSpan={2}>피해량</th>
                   <th>골드</th>
@@ -256,7 +244,6 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
 }
 
 function mapStateToProps(state:any){
-    console.log(state);
     return { 
         matchState:state.record,
         Smr:state.data

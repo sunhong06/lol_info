@@ -74,7 +74,7 @@ function SummonerInfo(props: propsType) {
             <SumInfo />
             <LeagueInfo />
             <RecordInfo />
-              <Team setMacthInfo={setMacthInfo} macthInfo={macthInfo} />
+              <Team />
           </>
           :
           <div>

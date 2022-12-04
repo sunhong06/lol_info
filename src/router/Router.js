@@ -14,7 +14,7 @@ function Router() {
     <BrowserRouter>
         <Routes>
             <Route path='/' exact={true} element={<Home />} ></Route>
-            <Route path='/SummonerInfo' element={<SummonerInfo />}></Route>
+            <Route path='/SummonerInfo/:summonerName' element={<SummonerInfo />}></Route>
             <Route path='/Ranking' element={<Ranking />} ></Route>
             <Route path='/Community' element={<Community />} ></Route>
             <Route path='/ChampionInfo/:name' element={<ChampionInfo />} ></Route>
