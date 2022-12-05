@@ -1,7 +1,7 @@
-import React, { useState,useEffect } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import '../scss/Header.scss';
-import { onAuthStateChanged,deleteUser } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { AuthService } from '../fbase'
 
 
@@ -45,7 +45,7 @@ function Header() {
     </ul>
     <nav className='gnb'>
       <ul>
-          <li className='logo' onClick={()=>window.location.reload()}><Link to='/'><img src='imgs/lol_logo.png' />LoL.info</Link></li>
+          <li className='logo' onClick={()=>window.location.reload()}><Link to='/'><img src={require("../img/lol_info.png")} />LoL.info</Link></li>
           <li onClick={()=>window.location.reload()}><Link to='/'>홈</Link></li>
           <li><Link to='/Ranking'>랭킹</Link></li>
           <li><Link to='/Community'>커뮤니티</Link></li>
