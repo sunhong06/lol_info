@@ -1,58 +1,74 @@
-import React, { useEffect,useState,useRef } from 'react'
+import React, { useEffect,useState } from 'react'
 import { connect } from 'react-redux'
 import {asiaLolAxios} from '../../../axios'
 import { match } from '../../../type/type';
 import {FiChevronDown} from 'react-icons/fi';
 import { MatchInfo } from '../../../store/store'
+import styled from 'styled-components'
 import '../../../scss/RecordInfo.scss'
-import { Link } from 'react-router-dom';
 
 function RecordInfo({matchState,matchsInfo,Smr}:any) {
+  const [max,setMax] = useState([])
 
-  
   const getMatchData = async() => {
-    const match = await asiaLolAxios.get(`match/v5/matches/by-puuid/${Smr.map((s:any) =>s.smrData.puuid)}/ids`)
-    Promise.all([match]).then((res3)=>{
-      res3[0].data.map(async(i:any)=>{
-         const res = await asiaLolAxios.get(`match/v5/matches/${i}`);
-         matchsInfo(res.data);
+    await asiaLolAxios.get(`match/v5/matches/by-puuid/${Smr.map((s: { smrData: { puuid: number } }) =>s.smrData.puuid)}/ids`)
+      .then((res3)=>{
+      res3.data.map(async (i: string)=>{
+         await  asiaLolAxios.get(`match/v5/matches/${i}`)
+         .then((res)=>{
+         matchsInfo(res.data)
+         setMax(res.data)
+         }).catch((error)=>{
+          console.log(error)
+         })
       })
     }).catch((error)=>{
       console.log(error)
     })
   } 
+
+
   useEffect(()=>{
   getMatchData();
   },[Smr])
 
+
+
   const onDetail = (e:any) =>{
     const detail = e.target.parentElement.parentElement.nextElementSibling;
-      if(detail.style.display == "none"){
-        detail.style.display = "block";
+      if(detail.style.display === "block"){
+        detail.style.display = "none";
     }else{
-      detail.style.display = "none";
+      detail.style.display = "block";
     }
   }
-  
+
+  const total = matchState.map((m:any)=>m.matchs.info.participants.map((p:any)=> p.totalDamageDealtToChampions));
+  const number = total.map((t:any)=>t.slice(0,5));
+  // console.log(number)
+  // console.log(Math.max.apply(null,number));
+  const maxNum = number.map((n:any)=> n.map((s:any)=> Math.floor((s / Math.max.apply(null, n))*100)))
+  const percent1 = maxNum.map((nums:[]) => nums)
+  const percent01 = percent1.shift()
   return (
     <>
         <ul className='record'>
         {matchState.map((m:any)=>( 
           <>
-          {m.matchs.info.participants.map((p:any)=> p.summonerName === Smr[0].smrData.name ?
-          <li className={p.win ? 'record_list' : 'record_list_lose'}>
+          {m.matchs.info.participants.map((p:any,index:number)=> p.summonerName === Smr[0].smrData.name ?
+          <li key={m.matchs.info.gameCreation} className={p.win ? 'record_list' : 'record_list_lose'}>
             <div className='game_info'>
               <div className='game_time'>{Math.round(m.matchs.info.gameDuration / 60)}분 {Math.round(m.matchs.info.gameDuration%60)}초</div>
               <div className='game_type'>
                 {m.matchs.info.queueId === 450 && "무작위 총력전"}
-                {m.matchs.info.queueId === 1900 && "U.R.F"}
+                {m.matchs.info.queueId === 900 && "U.R.F"}
                 {m.matchs.info.queueId === 420 && "솔랭"}
                 {m.matchs.info.queueId === 430 && "일반"}
                 {m.matchs.info.queueId === 440 && "자유 5:5랭크"}
                 </div>
                 <div className='game_result'>
                   {p.win
-                ?<span className='win'>승리</span> : <span className='lose'>패배</span> 
+                ? <span className='win'>승리</span> : <span className='lose'>패배</span> 
                 }    
                 </div>
             </div>
@@ -64,7 +80,11 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                   </div>  
                   <div className='k_d_a'>
                     <div className='kda'>{p.kills} / <span className='deaths'>{p.deaths}</span> / {p.assists}</div>
-                    <span className='kda_sum'>{((p.kills + p.assists) / p.deaths).toFixed(2)} 평점</span>
+                    <span className={                          
+                          Number(((p.kills + p.assists) / p.deaths).toFixed(2)) > 5 ? "kda_five" :
+                          Number(((p.kills + p.assists) / p.deaths).toFixed(2)) > 4 ? "kda_four" :
+                          Number(((p.kills + p.assists) / p.deaths).toFixed(2)) >= 3 ? "kda_three" :
+                          Number(((p.kills + p.assists) / p.deaths).toFixed(2)) < 3 ? "kda_two" : undefined}>{((p.kills + p.assists) / p.deaths).toFixed(2)} <span className='kda_txt'>평점</span></span>
                   </div>
                   <div className='stats'>
                     <div className='kill_invo'>
@@ -100,7 +120,7 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
             <ul>
               {m.matchs.info.participants.map((p:any,index:number)=>( index > 4 ? 
                 <li>
-                  <a href={`/SummonerInfo/${p.summonerName}`} target="_blank" className="smr_link">
+                  <a href={`/lol_info/SummonerInfo/${p.summonerName}`} target="_blank" className="smr_link">
                   <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />
                   {p.summonerName}
                   </a>
@@ -111,7 +131,7 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
               <ul>
               {m.matchs.info.participants.map((p:any,index:number)=>( index < 5 ? 
                 <li>
-                  <a href={`/SummonerInfo/${p.summonerName}`} className="smr_link">
+                  <a href={`/lol_info/SummonerInfo/${p.summonerName}`} className="smr_link">
                   <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />
                   {p.summonerName}
                   </a>
@@ -150,8 +170,8 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                 </tr>
               </thead>
               <tbody>
-              {m.matchs.info.participants.map((p:any,index:number)=>( index>4 && 
-                <tr className={p.win ? "win" : "lose"} >
+              {m.matchs.info.participants.map((p:any,index:number)=>(index > 4 &&
+                <tr key={index} className={p.win ? "win" : "lose"}>
                 <td className='s_name'><img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />{p.summonerName}</td>
                     <td className='detail_kda'>
                         <span>{p.kills}/<span className='deaths'>{p.deaths}</span>/{p.assists} ({m.matchs.info.teams.map((team:any)=>(team.teamId === p.teamId &&
@@ -164,8 +184,14 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                           Number(((p.kills + p.assists) / p.deaths).toFixed(2)) < 3 ? "two" : undefined
                           }>{((p.kills + p.assists) / p.deaths).toFixed(2)}</span>
                     </td>
-                      <td className='damage'><div className='box'></div>{p.totalDamageDealtToChampions}</td>
-                      <td className='damage'><div className='box'></div>{p.totalDamageTaken}</td>
+                      <td className='damage'>
+                        <Progress>
+                        </Progress>
+                        {p.totalDamageDealtToChampions}
+                      </td>
+                      <td className='damage'>
+                      {p.totalDamageTaken}
+                      </td>
                     <td>{p.goldEarned}g</td>
                     <td>{p.totalMinionsKilled}</td>
                     <td>
@@ -184,12 +210,12 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                 </table>
                 <table>
                 <colgroup>
-                <col width="185" />
-                <col width="100" />
-                   <col width="85" />
-                   <col width="85" />
-                   <col width="80" />
-                   <col width="40" />
+                    <col width="185" />
+                    <col width="100" />
+                    <col width="85" />
+                    <col width="85" />
+                    <col width="80" />
+                    <col width="40" />
                 </colgroup>
                 <thead>
                 <tr>
@@ -203,7 +229,7 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
               </thead>
               <tbody>
                      {m.matchs.info.participants.map((p:any,index:number)=>( index<5 &&
-                <tr className={p.win ? "win" : "lose"}>
+                <tr key={index} className={p.win ? "win" : "lose"}>
                 <td className='s_name'><img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />{p.summonerName}</td>
                     <td className='detail_kda'>
                         <span>{p.kills}/<span className='deaths'>{p.deaths}</span>/{p.assists} ({m.matchs.info.teams.map((team:any)=>(team.teamId === p.teamId &&
@@ -216,18 +242,25 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                           Number(((p.kills + p.assists) / p.deaths).toFixed(2)) < 3 ? "two" : undefined
                           }>{((p.kills + p.assists) / p.deaths).toFixed(2)}</span>
                     </td>
-                      <td className='damage'><div className='box'><div className='porgress_bar'></div></div>{p.totalDamageDealtToChampions}</td>
-                      <td className='damage'><div className='box'><div className='porgress_bar'></div></div>{p.totalDamageTaken}</td>
+                    <td className='damage'>
+                      <Progress>
+                      <Dealt dealt={percent01.splice(0,1)}/>
+                      </Progress>
+                        {p.totalDamageDealtToChampions}
+                    </td>
+                      <td className='damage'>
+                      {p.totalDamageTaken}
+                        </td>
                     <td>{p.goldEarned}g</td>
                     <td>{p.totalMinionsKilled}</td>
                     <td>
                     <ul className='item'>
-                        <li>{p.item0 ?<img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item0}.png`} alt="item1" /> : undefined}</li>
-                        <li>{p.item1 ?<img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item1}.png`} alt="item2" /> : undefined}</li>
-                        <li>{p.item2 ?<img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item2}.png`} alt="item3" /> : undefined}</li>
-                        <li>{p.item3 ?<img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item3}.png`} alt="item4" /> : undefined}</li>
-                        <li>{p.item4 ?<img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item4}.png`} alt="item5" /> : undefined}</li>
-                        <li>{p.item5 ?<img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item5}.png`} alt="item6" /> : undefined}</li>
+                        <li>{p.item0 ? <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item0}.png`} alt="item1" /> : undefined}</li>
+                        <li>{p.item1 ? <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item1}.png`} alt="item2" /> : undefined}</li>
+                        <li>{p.item2 ? <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item2}.png`} alt="item3" /> : undefined}</li>
+                        <li>{p.item3 ? <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item3}.png`} alt="item4" /> : undefined}</li>
+                        <li>{p.item4 ? <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item4}.png`} alt="item5" /> : undefined}</li>
+                        <li>{p.item5 ? <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/item/${p.item5}.png`} alt="item6" /> : undefined}</li>
                       </ul>
                     </td>
                 </tr>
@@ -243,10 +276,23 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
   )
 }
 
+// const dealt =  Math.floor((num / maxNum) * 100);
+const Progress = styled.div`
+  width: 60px;
+  height: 7px;
+  margin: 0 auto;
+  background-color: #eee;
+`;
+const Dealt = styled.div<{ dealt: number }>`
+  background-color: red;
+  width: ${(props) => props.dealt + "%"};
+  height: 100%;
+`;
+
 function mapStateToProps(state:any){
     return { 
         matchState:state.record,
-        Smr:state.data
+        Smr:state.data,
      }
   }
 
@@ -256,4 +302,6 @@ function mapStateToProps(state:any){
     }
   }
 
-export default connect(mapStateToProps,mapDispatchToProps) (RecordInfo);
+
+
+export default connect(mapStateToProps,mapDispatchToProps) (RecordInfo);                                                       

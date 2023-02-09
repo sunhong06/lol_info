@@ -103,9 +103,10 @@
     }
     tbody{
         height: 40px;
-        &:hover{
-            background: #f9f9f9;
-        }
+        tr{
+            &:hover{
+                background: #f9f9f9;
+            }
             td{
                 border-top: 1px solid #d9d9d9;
                 border-bottom: 1px solid #d9d9d9;
@@ -114,6 +115,7 @@
                     display: block;
                 }
              }
+        }
     }
 }
 

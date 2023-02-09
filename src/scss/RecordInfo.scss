@@ -74,9 +74,12 @@
                             color: #d31a45;
                         }
                     }
-                    .kda_sum{
-                        font-size: 0.8rem;
-                        color: #758592;
+                    .kda_two{ color: #758592;  font-size: 0.8rem;}
+                    .kda_three{ color: #00a399; font-size: 0.8rem;}
+                    .kda_four{ color: #0093ff; font-size: 0.8rem;}
+                    .kda_five{ color: #f06f00; font-size: 0.8rem;}
+                    .kda_txt{
+                        color: #758592; font-size: 0.7rem;
                     }
                 }
                 .stats{
@@ -247,10 +250,7 @@
             }
             .damage{
             padding: 0 5px;
-                .box{
-                    height: 8px;
-                    background-color: #4B89DC;
-                }  
+
             }
         }
     }

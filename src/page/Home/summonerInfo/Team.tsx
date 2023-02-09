@@ -3,12 +3,10 @@ import { connect } from 'react-redux';
 import '../../../scss/Team.scss';
 
 function Team({matchState}:any) {
-  const [smrName,setSmrName] = useState([]);
-    useEffect(()=>{
-      {matchState.forEach((m:any)=> (
-        m.matchs.info.participants.forEach((p:any)=> setSmrName(p.summonerName))
-        ))}
-    },[])
+  const [smrName,setSmrName] = useState([])
+
+
+
   return (
     <div>
        <table className='same_team'>
@@ -19,11 +17,11 @@ function Team({matchState}:any) {
             <th scope='col'>게임</th>
             <th scope='col'>승-패</th>
             <th scope='col'>승률</th>
-          </tr>
+        </tr>
        </thead>
        <tbody>
         <tr>
-            <td>{smrName}</td>
+            <td></td>
             <td></td>
             <td></td>
         </tr>
@@ -33,9 +31,13 @@ function Team({matchState}:any) {
   )
 }
 
+
+
 function mapStateToProps(state:any){
   return { 
       matchState:state.record
    }
   }
+
+
 export default connect(mapStateToProps) (Team);

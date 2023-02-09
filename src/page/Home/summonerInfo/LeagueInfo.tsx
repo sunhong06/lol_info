@@ -7,6 +7,7 @@ import '../../../scss/LeagueInfo.scss'
 
 function LeagueInfo({Smr}:any) {
   const [summonerLeagueData, setSummonerLeagueData] = useState<summonerLeague[]>([]);
+  
   const getLeagueData = async() => {
     await lolAxios.get(`/league/v4/entries/by-summoner/${Smr.map((s:any) =>s.smrData.id)}`)
       .then(((res2) => {
@@ -62,6 +63,7 @@ function LeagueInfo({Smr}:any) {
 function mapStateToProps(state:any){
   return { Smr:state.data }
 }
+
 
 
 

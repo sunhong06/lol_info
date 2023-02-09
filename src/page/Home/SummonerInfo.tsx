@@ -3,78 +3,49 @@ import Header from '../../components/Header';
 import LeagueInfo from './summonerInfo/LeagueInfo'
 import '../../scss/summonerInfo.scss'
 import Team from './summonerInfo/Team'
-import { propsType,match } from '../../type/type';
-import SumInfo from './summonerInfo/SumInfo';
 import RecordInfo from './summonerInfo/RecordInfo';
+import { LgInfo } from '../../store/store';
+import { connect } from 'react-redux';
+import {lolAxios} from '../../axios';
+import { useLocation } from 'react-router-dom';
 
 
 
 
-function SummonerInfo(props: propsType) {
+function SummonerInfo({sData,Smr}:any) {
 
-  const [searchValue, setSearchValue] = useState(true);
-  const [divide, setDivide] = useState(true);
-  const [macthInfo, setMacthInfo] = useState<match[]>([]);
+  const location = useLocation();
+  const search  = location.state;
 
-
-
-
-  // const macthdata = macth.data.map(async (mh:any)=>{await axios.get(`https://asia.api.riotgames.com/lol/match/v5/matches/${mh}?api_key=${API_KEY}`)})
-  // const getMacthInfoData = async() => {
-  //   const macthInfoAPI = macthData.map((macth) => `https://asia.api.riotgames.com/lol/match/v5/matches/${macth}?api_key=${API_KEY}`);
-  //   macthInfoAPI.map(async (API:any) => {
-  //     await axios.get(API)
-  //       .then(((res4) => {
-  //         setMacthInfo(res4.data.info.participants);
-  //         setQueueId(res4.data.info.queueId);
-  //         setMacthId(res4.data.metadata.matchId);
-  //         setMinutes(Math.floor(res4.data.info.gameDuration / 60));
-  //         setSeconds(res4.data.info.gameDuration - Math.floor(res4.data.info.gameDuration / 60) * 60);
-  //         setAverage(res4.data.info.teams);
-  //       })).catch((error) => {
-  //         console.log(error);
-  //       })
-  //   })
-  // }
-
-
-  // const getChampionsLevelData = async() =>{
-  //   const ChampionLevelAPI = `https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerData?.id}?api_key=${API_KEY}`;
-  //   await axios.get(ChampionLevelAPI)
-  //   .then(((res3) =>{
-  //     setChampionLevelData(res3.data);
-  //     console.log(res3.data)
-  //   })).catch((error) => {
-  //     console.log(error);
-  //     setSearchValue(false);
-  //   })
-  // }
-
-  // const getChampionsData = async() =>{
-  //   const ChampionLevelAPI = `https://ddragon.leagueoflegends.com/cdn/10.6.1/data/ko_KR/champion.json`;
-  //   await axios.get(ChampionLevelAPI)
-  //   .then(((res4) =>{
-  //     setChampionData(res4.data);
-  //     console.log(res4.data)
-
-  //   })).catch((error) => {
-  //     console.log(error);
-  //     setSearchValue(false);
-  //   })
-  // }
-
+  const getSummonerData = async() => {
+      await lolAxios.get(`summoner/v4/summoners/by-name/${search}`)
+        .then(((res) => { 
+          sData(res.data);
+        })).catch((error) => {
+          console.log(error)
+        })
+    }
+    useEffect(()=>{
+      getSummonerData();
+    },[search])
 
   return (
     <>
       <Header />
       <main className='summoner_main'>
       <div className='summoner_main_inner'>
-        {searchValue ?
+        {Smr.length == 1 ?
           <>
-            <SumInfo />
+            {Smr.map((s:any)=>
+            <div className='summoner_info' key={s.smrData.id}>
+                <img src={`http://ddragon.leagueoflegends.com/cdn/12.20.1/img/profileicon/${s.smrData.profileIconId}.png`} className="profile_icon" />
+                <h2 className='summoner_id'>{s.smrData.name}</h2>
+                <span className='summoner_level'>{s.smrData.summonerLevel}</span>
+            </div>
+            )}
             <LeagueInfo />
             <RecordInfo />
-              <Team />
+            <Team />
           </>
           :
           <div>
@@ -86,5 +57,16 @@ function SummonerInfo(props: propsType) {
     </>
   )
 }
+const mapStateToProps = (state:any) =>{
+  return {
+    Smr: state.data
+  }
+}
 
-export default SummonerInfo;
+function mapDispatchToProps(dispatch:any){
+  return {
+      sData: (smrData:any) => dispatch(LgInfo(smrData))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)  (SummonerInfo);
