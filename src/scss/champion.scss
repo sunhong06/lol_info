@@ -1,24 +1,19 @@
-main{
-    width: 100%;
-    .champion_title{
-     text-align: center;
-     margin-top: 50px;
-     font-size: 40px;
-    }
-     .champion_table{
+.champs{
+    display: inline-block;
+    width:80px;
+    height: 90px;
+    padding-right: 10px;
+    overflow: hidden;
+    button{
         width: 100%;
-         max-width: 1360px;
-         margin: 30px auto;
-         border-collapse: collapse;
-         tbody{
-             tr{
-                 td{
-                     width: 120px;
-                     height: 120px;
-                     border: 3px solid #222;
-                     text-align: center;
-                 }
-             }
-         }
-     }
- }
+        img{
+           width: 100%;
+        }
+    }
+    .champ_name{
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            overflow: hidden;
+    }
+}

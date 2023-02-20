@@ -5,14 +5,15 @@ import {lolAxios} from '../../axios';
 import '../../scss/ranking.scss';
 import RankingData from './RankingData';
 import Pageing from './Pageing';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 
 
 function Ranking(){
 const [Crank,setCRank] = useState([]);
 const [GMrank,setGMRank] = useState([]);
 const [Mrank,setMRank] = useState([]);
-const [search,setSearch] = useState<string>();
+const [search,setSearch] = useState("");
+const [searchData,setSearchData] = useState("");
 const [page, setPage] = useState<number>(1);
 const limit = 100;
 const offset = (page-1)*limit;
@@ -69,7 +70,6 @@ const postsData = (posts:any) => {
 
   useEffect(()=>{
     getCRankingData();
-    
   },[])
 
   const totalPosts = Crank.length + GMrank.length + Mrank.length 
@@ -78,7 +78,7 @@ const postsData = (posts:any) => {
   const highRankingDataSort =  highRankingData.sort(((a:any,b:any)=>{
     return   b[point] - a[point] 
 }))
-console.log(highRankingDataSort)
+
 
 const onChangeSearch = (e:any) =>{
   e.preventDefault();
@@ -88,12 +88,13 @@ const onChangeSearch = (e:any) =>{
 
 const onHandleSearchClick = (e:any) =>{
   e.preventDefault();
-  highRankingDataSort.filter((item:any) =>{
-  const searchData = item.summonerName.toLowerCase().includes(search)
-  console.log(searchData)
-});
+  const rankSearch =  highRankingDataSort.filter((item:any)=>{
+    return item.summonerName.toLowerCase().includes(search.toLowerCase());})
+    if(rankSearch){
+      navigate(`?page=${page}`)
+    }
   setSearch("");
-}
+};
 
   return (
     <>
@@ -128,7 +129,7 @@ const onHandleSearchClick = (e:any) =>{
           </tr>
         </thead>
         <tbody>
-          <RankingData rank={postsData(highRankingDataSort)} ranks={highRankingDataSort} Crank={Crank} GMrank={GMrank} Mrank={Mrank} totalPosts={totalPosts}  />
+          <RankingData page={page} rank={postsData(highRankingDataSort)} Crank={Crank} GMrank={GMrank} Mrank={Mrank}   />
         </tbody>
       </table>
       <Pageing setPage={setPage} page={page} limit={limit} totalPosts={totalPosts} rank={postsData(highRankingDataSort)}  />

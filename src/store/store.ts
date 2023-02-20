@@ -8,7 +8,9 @@ const summonerData = createSlice({
   initialState:{
     data:[],
     record:[],
-    gameCreate:[]
+    gameCreate:[],
+    Champ:[]
+
   },
   reducers:{
     LgInfo: (state:any,action) => {
@@ -19,6 +21,12 @@ const summonerData = createSlice({
     },
     Create:(state:any,action)=>{
       state.gameCreate.push(action.payload)
+    },
+    Champions:(state:any,action)=>{
+      state.Champ.push(action.payload)
+    },
+    ChampionsRemove:(state:any,action)=>{
+      state.Champ.shift(action.payload)
     }
   }
 })
@@ -27,6 +35,6 @@ const summonerData = createSlice({
 
 const store = configureStore({reducer:summonerData.reducer})
 
-export const { LgInfo,MatchInfo,Create } = summonerData.actions;
+export const { LgInfo,MatchInfo,Create,Champions,ChampionsRemove } = summonerData.actions;
 
 export default store;

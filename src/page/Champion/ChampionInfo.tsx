@@ -1,36 +1,62 @@
-import React from 'react'
+import { setSelectionRange } from '@testing-library/user-event/dist/utils';
+import axios from 'axios';
+import React, { useState,useEffect } from 'react'
+import { connect } from 'react-redux';
+import { lolAxios } from '../../axios';
 import Header from '../../components/Header';
-import '../../scss/champion.scss'
+import '../../scss/ChampionInfo.scss'
+import ChampDetail from './ChampDetail';
+import Champion from './Champion';
+import ChampionRotations from './ChampionRotations';
 
-function ChampionInfo() {
+function ChampionInfo(champsInfo:any) {
+  const [champs,setChamps] = useState([]);
+  const [rotation, setRotation] = useState<any>([]);
+  const [detail, setDetail] = useState<boolean>(false);
+
+  useEffect(()=>{
+    rotations();
+    ChampInfos();
+  },[])
+
+  const ChampInfos = async() =>{
+    await axios.get("https://ddragon.leagueoflegends.com/cdn/13.3.1/data/ko_KR/champion.json")
+    .then((res:any) => {
+      setChamps(res.data.data)
+    }).catch((error:any) => {
+      console.log(error);
+    })
+  }
+  const rotations = async() =>{
+    await lolAxios.get(`platform/v3/champion-rotations`)
+    .then((res:any) => {
+      setRotation(res.data.freeChampionIds)
+    }).catch((error:any) => {
+      console.log(error);
+    })
+  }
+
+
   return (
     <>
     <Header />
     <main>
       <h2 className='champion_title'>챔피언정보</h2>
-      <table className='champion_table'>
-        <caption className='blind'>챔피언정보</caption>
-        <colgroup>
-
-        </colgroup>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-            <td>7</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-          </tr>
-        </tbody>
-      </table>
+      <ChampionRotations rotation={rotation} champs={champs} setDetail={setDetail} />
+      <ul className='champion_table'>
+            <Champion setDetail={setDetail} champs={champs} />
+      </ul>
+      {detail && <ChampDetail setDetail={setDetail} />}
     </main>
     </>
   )
 }
 
-export default ChampionInfo;
+function mapStateToProps(state:any){
+  return { 
+    champsInfo:state.Champ
+ }
+}
+
+
+export default connect(mapStateToProps) (ChampionInfo);
