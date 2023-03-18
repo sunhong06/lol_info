@@ -1,0 +1,30 @@
+.cmnt_form{
+    text-align: center;
+    margin-top: 20px;
+     fieldset{
+         .cmnt_input{
+             height: 35px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             select{
+                 width: 125px;
+                 height: 100%;
+                 border-color: #999;
+             }
+             input{
+                 width: 250px;
+                 height: 100%;
+                 
+             }
+             button{
+                 width: 50px;
+                 height: 35px;
+                 border: 1px solid rgb(118, 118, 118);
+                 border-left: none;
+                 background: transparent;
+                 border-color: #999;
+             }
+         }
+     }
+ }

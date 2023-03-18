@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {  signInWithEmailAndPassword,GoogleAuthProvider,GithubAuthProvider ,signInWithPopup,FacebookAuthProvider,deleteUser } from "firebase/auth";
+import {  signInWithEmailAndPassword,GoogleAuthProvider,GithubAuthProvider ,signInWithPopup,FacebookAuthProvider } from "firebase/auth";
 import { AuthService } from '../fbase'
 import {FaGithub,FaGoogle,FaFacebook} from 'react-icons/fa'
 import '../scss/Login.scss'

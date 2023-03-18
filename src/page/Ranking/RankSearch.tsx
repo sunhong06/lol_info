@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
-import RankingData from './RankingData';
+import React from 'react'
+import { FaSearch } from 'react-icons/fa';
 
-function RankSearch() {
-    const location = useLocation();
-    const highRankingDataSort = location.state.highRankingDataSort
-    const search = location.state.search
-    const rankSearch =  highRankingDataSort.filter((item:any)=>{
-    return item.summonerName.toLowerCase().includes(search.toLowerCase());})
-    console.log(rankSearch)
+function RankSearch({search,setSearch}:any) {
+    
+
+      const onHandleSearchClick = (e:any) =>{
+        e.preventDefault();
+      
+      };
     return(
-        <div className="cardList">
-                {rankSearch[0].summonerName}
-      </div>
+    <div className='rank_input'>
+        <input type="search"  placeholder='소환사 명' value={search} onChange={(e)=>setSearch(e.target.value)} className='rank_search' title='검색' />
+        <button type='submit' onClick={onHandleSearchClick}><FaSearch /></button>
+    </div>
     )
 }
 

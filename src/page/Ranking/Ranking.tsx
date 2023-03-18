@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header';
-import { FaSearch } from 'react-icons/fa';
 import {lolAxios} from '../../axios';
 import '../../scss/ranking.scss';
 import RankingData from './RankingData';
 import Pageing from './Pageing';
 import { createSearchParams, useNavigate } from 'react-router-dom';
+import RankSearch from './RankSearch';
 
 
 function Ranking(){
@@ -80,21 +80,6 @@ const postsData = (posts:any) => {
 }))
 
 
-const onChangeSearch = (e:any) =>{
-  e.preventDefault();
-  setSearch(e.target.value.toLowerCase());
-}
-
-
-const onHandleSearchClick = (e:any) =>{
-  e.preventDefault();
-  const rankSearch =  highRankingDataSort.filter((item:any)=>{
-    return item.summonerName.toLowerCase().includes(search.toLowerCase());})
-    if(rankSearch){
-      navigate(`?page=${page}`)
-    }
-  setSearch("");
-};
 
   return (
     <>
@@ -104,10 +89,7 @@ const onHandleSearchClick = (e:any) =>{
       <form className='rank_form'>
         <fieldset>
             <legend className='blind'>소환사 랭킹 검색창</legend>
-        <div className='rank_input'>
-            <input type="search"  placeholder='소환사 명' value={search} onChange={onChangeSearch} className='rank_search' title='검색' />
-            <button type='submit' onClick={onHandleSearchClick}><FaSearch / ></button>
-        </div>
+            <RankSearch setSearch={setSearch} search={search} />
         </fieldset>
       </form>
       <table className='rank_table'>
@@ -129,7 +111,7 @@ const onHandleSearchClick = (e:any) =>{
           </tr>
         </thead>
         <tbody>
-          <RankingData page={page} rank={postsData(highRankingDataSort)} Crank={Crank} GMrank={GMrank} Mrank={Mrank}   />
+          <RankingData search={search} page={page} rank={postsData(highRankingDataSort)} Crank={Crank} GMrank={GMrank} Mrank={Mrank}   />
         </tbody>
       </table>
       <Pageing setPage={setPage} page={page} limit={limit} totalPosts={totalPosts} rank={postsData(highRankingDataSort)}  />

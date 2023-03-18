@@ -12,12 +12,12 @@ function ChampDetail({setDetail,champsInfo,ChampionRemove}:any) {
       setDetail(false);
       ChampionRemove(champsInfo)
     }
-    champsInfo.map((s:any)=> Object.entries(championfull.data).map((full:any)=> {s[0] == full[0] && 
-    console.log(full[1].passive.name)
-    }));
+
     const notImg = (e:any) =>{
       e.target.parentNode.outerHTML =""
     }
+
+
     // const HeadlesideClick = () =>{
 
     // }
@@ -36,50 +36,48 @@ function ChampDetail({setDetail,champsInfo,ChampionRemove}:any) {
                 <div className='blurb'>{info[1].blurb}</div>
                 <h2>SKILLS</h2>
                 <>
-                {Object.entries(championfull.data).map((full:any)=>{ full[0] == info[0] &&
                 <ul className='champ_skills'>
                   <li className='p_skill'>
                   <img src={`${process.env.PUBLIC_URL}/imgs/passive/${info[0]}_P.png`} alt={`${info[0]}Passive`} />
                   <span className='skill_command'>P</span>
                   <div className='skill_ex'>
-                    <h3>{full[1].passive.name}</h3>
-                    <h3>{full[1].passive.description}</h3>
+                    {/* <h3>{full[1].passive.name}</h3>
+                    <h3>{full[1].passive.description}</h3> */}
                     </div>
                   </li>
                   <li className='q_skill'>
                     <img src={`${process.env.PUBLIC_URL}/imgs/spell/${info[0]}Q.png`} alt={`${info[0]}q_Skill`} />
                     <span className='skill_command'>Q</span>
                     <div className='skill_ex'>
-                      <h3>{full[1].spells[0].name}</h3>
-                      <p>{full[1].spells[0].description}</p>
+                      {/* <h3>{full[1].spells[0].name}</h3>
+                      <p>{full[1].spells[0].description}</p> */}
                     </div>
                   </li>
                   <li className='w_skill'>
                     <img src={`${process.env.PUBLIC_URL}/imgs/spell/${info[0]}W.png`} alt={`${info[0]}w_Skill`} />
                     <span className='skill_command'>W</span>
                     <div className='skill_ex'>
-                      <h3>{full[1].spells[1].name}</h3>
-                      <p>{full[1].spells[1].description}</p>
+                      {/* <h3>{full[1].spells[1].name}</h3>
+                      <p>{full[1].spells[1].description}</p> */}
                     </div>
                   </li>
                   <li className='e_skill'>
                     <img src={`${process.env.PUBLIC_URL}/imgs/spell/${info[0]}E.png`} alt={`${info[0]}e_Skill`} />
                     <span className='skill_command'>E</span>
                     <div className='skill_ex'>
-                      <h3>{full[1].spells[2].name}</h3>
-                      <p>{full[1].spells[2].description}</p>
+                      {/* <h3>{full[1].spells[2].name}</h3>
+                      <p>{full[1].spells[2].description}</p> */}
                     </div>
                   </li>
                   <li className='r_skill'>
                     <img src={`${process.env.PUBLIC_URL}/imgs/spell/${info[0]}R.png`} alt={`${info[0]}r_Skill`} />
                     <span className='skill_command'>R</span>
                     <div className='skill_ex'>
-                      <h3>{full[1].spells[3].name}</h3>
-                      <p>{full[1].spells[3].description}</p>
+                      {/* <h3>{full[1].spells[3].name}</h3>
+                      <p>{full[1].spells[3].description}</p> */}
                     </div>
                   </li>
                 </ul>
-                  })}
                   </>
                 <h2>SKIN</h2>
                 <ul className='champ_skins'>

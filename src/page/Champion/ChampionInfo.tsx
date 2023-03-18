@@ -1,4 +1,3 @@
-import { setSelectionRange } from '@testing-library/user-event/dist/utils';
 import axios from 'axios';
 import React, { useState,useEffect } from 'react'
 import { connect } from 'react-redux';
@@ -8,11 +7,13 @@ import '../../scss/ChampionInfo.scss'
 import ChampDetail from './ChampDetail';
 import Champion from './Champion';
 import ChampionRotations from './ChampionRotations';
+import ChampoinSearch from './ChampoinSearch';
 
 function ChampionInfo(champsInfo:any) {
   const [champs,setChamps] = useState([]);
   const [rotation, setRotation] = useState<any>([]);
   const [detail, setDetail] = useState<boolean>(false);
+  const [search,setSearch] = useState("");
 
   useEffect(()=>{
     rotations();
@@ -43,8 +44,9 @@ function ChampionInfo(champsInfo:any) {
     <main>
       <h2 className='champion_title'>챔피언정보</h2>
       <ChampionRotations rotation={rotation} champs={champs} setDetail={setDetail} />
+      <ChampoinSearch  setSearch={setSearch} search={search} />
       <ul className='champion_table'>
-            <Champion setDetail={setDetail} champs={champs} />
+            <Champion setDetail={setDetail} champs={champs} search={search} />
       </ul>
       {detail && <ChampDetail setDetail={setDetail} />}
     </main>

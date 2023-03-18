@@ -12,16 +12,16 @@ function Header() {
   const navigate = useNavigate();
 
   const onLogOutClick = () =>{
+    setTopNavi(true);
     AuthService.signOut();
     navigate("/");
-    setTopNavi(prev => !prev);
+    window.location.reload();
 
   }
 
   onAuthStateChanged(AuthService, (user) => {
     if (user) {
-      setTopNavi(prev => !prev);
-      const uid = user.uid;
+      setTopNavi(false);
     } 
   });
 
@@ -48,7 +48,7 @@ function Header() {
           <li className='logo' onClick={()=>window.location.reload()}><Link to='/'><img src={process.env.PUBLIC_URL + "/imgs/lol_logo.png"} />LoL.info</Link></li>
           <li onClick={()=>window.location.reload()}><Link to='/'>홈</Link></li>
           <li><Link to='/Ranking'>랭킹</Link></li>
-          <li><Link to='/Community'>커뮤니티</Link></li>
+          <li><Link to='/Community' >커뮤니티</Link></li>
           <li><Link to='/ChampionInfo'>챔피언정보</Link></li>
       </ul>
     </nav>

@@ -1,62 +1,56 @@
-import React from 'react'
-import {FaArrowDown,FaArrowUp,FaComment} from 'react-icons/fa'
+import React,{ useState } from 'react'
 import Header from '../../components/Header';
-import '../../scss/Writing.scss';
+import { addDoc ,collection } from "firebase/firestore";
+import {db} from '../../fbase'
+import '../../scss/Community/Writing.scss';
+import { useNavigate } from 'react-router-dom';
 
-function Writing() {
+const Writing = ({userObj}:any) => {
+    const [titleValue,setTitleValue] = useState("");
+    const [detailValue,setDetailValue] = useState("");
+    const navigate = useNavigate();
+
+    const addBoard = async(e:any) => {
+        e.preventDefault()
+       await addDoc(collection(db, "Board"), {
+            title: titleValue,
+            detail:detailValue,
+            createAt:Date.now(),
+            view:0,
+            up:0
+          });
+          navigate('/Community')
+    }
+
   return (
     <>
-    <Header />
-    <main className='writing_main'>
-    <h2 className='blind'>글작성</h2>
-    <div className='writing_category'>
-        <ul>
-          <li><a href='#'>전체</a></li>
-          <li><a href='#'>자유</a></li>
-          <li><a href='#'>질문,답변</a></li>
-          <li><a href='#'>챔피언공략</a></li>
-        </ul>
-    </div>
-    <div className='writing_box'>
-        <p className='article_info'>
-            <span>작성자</span>
-            <span>제목</span>
-            <span>조회수</span>
-        </p>
-        <div className='content_field'>
-            <p className='options'>[카테고리]</p>
-            <div className='recommendation'>
-                <button><FaArrowUp /><span>UP</span></button>
-                <button><FaArrowDown /><span>DOWN</span></button>
-            </div>
-            <div className='click_bar'>
-                <button>목록</button>
-                <button>댓글</button>
-            </div>
+        <Header />
+        <div className='writing_main'>
+            <form className='writing_form' onSubmit={addBoard}>
+                <fieldset>
+                    <legend className='blind'>글작성</legend>
+                    <div className='title_box'>
+                        <select>
+                            <option>자유</option>
+                            <option>질문,답변</option>
+                            <option>쳄피언공략</option>
+                        </select>
+                        <div className='title'>
+                            <label htmlFor='title'>제목 : </label>
+                            <input type="text" id='title' value={titleValue} onChange={(e)=> setTitleValue(e.target.value)}  autoFocus required />
+                            </div>
+                    </div>
+                    <div className='writing_box'>
+                        <textarea value={detailValue} onChange={(e)=> setDetailValue(e.target.value)} cols={150} rows={40} required></textarea>
+                    </div>
+                    <span className='attach_box'>
+                    <label htmlFor="file">이미지 업로드</label>
+                    <input className='blind' accept=".jpg, .jpeg, .png" type="file" id="file" multiple />
+                    </span>
+                   <button type='submit' className='submit_btn'>작성완료</button>
+                </fieldset> 
+            </form>
         </div>
-        <div className='comment_box'>
-            <h3 className='comment_title'><FaComment />댓글</h3>
-                <form className='comment_form'>
-                    <fieldset>
-                        <legend className='blind'>댓글창</legend>
-                        <label htmlFor='comment_bar' className='blind'>작성자</label>
-                        <input id='comment_bar' type="text"   placeholder='댓글을 입력하세요' />
-                        <input type="submit" value="등록" />
-                    </fieldset>
-                </form>
-                <ul className='comment_list'>
-                    <li>
-                        <span>sunhonggod</span>
-                        <span>2022.02.02</span>
-                        <p className='commemt_field'>댓글내용</p>
-                        <button type='button' className='remove'>삭제</button>
-                        <button type='button' className='reply'>답글</button>
-                        <p className='reply_field'></p>
-                    </li>
-                </ul>
-        </div>
-    </div>
-    </main>
     </>
   )
 }

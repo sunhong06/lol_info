@@ -1,0 +1,36 @@
+.cmnt_table{
+    margin: 10px 0 35px;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    colgroup{
+        .number{width: 7.5%;}
+        .title{width: 50%;}
+        .user{width: 20%;}
+        .date{width: 15%;}
+        .rmd{width: 7.5%;}
+    }
+    thead{
+        th{
+           background: #f9f9f9;
+           height: 30px;
+           color: #999;
+        }
+    }
+    tbody{
+        height: 40px;
+        tr{
+            &:hover{
+                background: #f9f9f9;
+            }
+            td{
+                border-top: 1px solid #d9d9d9;
+                border-bottom: 1px solid #d9d9d9;
+                color: #666;
+                a{
+                    display: block;
+                }
+            }
+        }
+    }
+}
