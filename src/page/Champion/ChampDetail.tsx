@@ -13,15 +13,15 @@ function ChampDetail({setDetail,champsInfo,ChampionRemove}:any) {
       ChampionRemove(champsInfo)
     }
 
-    const notImg = (e:any) =>{
+    const notImg = (e:React.BaseSyntheticEvent) =>{
       e.target.parentNode.outerHTML =""
     }
 
 
-    // const HeadlesideClick = () =>{
-
-    // }
-    // useOnclickOutside(ref,  HeadlesideClick);
+    const HeadlesideClick = () =>{
+      onClose();
+    }
+    useOnclickOutside(ref,  HeadlesideClick);
   return (
     <div className='presentation'>
         <div className='wrapper_Detail'>

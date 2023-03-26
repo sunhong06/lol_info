@@ -15,25 +15,31 @@ import { onAuthStateChanged } from "firebase/auth";
 import '../scss/common.scss'
 
 function Router() {
-  const [userObj,setUserObj] = useState({});
+  const [login,setLogin] = useState(false);
+  const [userObj, setUserObj] = useState(null);
   useEffect(()=>{
     onAuthStateChanged(AuthService, (user) => {
       if (user) {
+        setLogin(true);
         setUserObj(user);
+      } else {
+        setLogin(false);
       }
     })
   },[])
+  console.log(userObj)
   return (
     <BrowserRouter  basename={process.env.PUBLIC_URL}>
-        <Routes>
-            <Route path='/' exact={true} element={<Home  />} ></Route>
-            <Route path='/SummonerInfo/:summonerName' element={<SummonerInfo  />}></Route>
-            <Route path='/Ranking' element={<Ranking  />} ></Route>
+      {/* {login == false && <Login />} */}
+        <Routes> 
+            <Route path='/' exact={true} element={<Home userObj={userObj}  />} ></Route>
+            <Route path='/SummonerInfo/:summonerName' element={<SummonerInfo userObj={userObj} />}></Route>
+            <Route path='/Ranking' element={<Ranking userObj={userObj} />} ></Route>
             <Route path='/Ranking/search/:search' element={<RankSearch  />}></Route>
-            <Route path='/Community' element={<Community  />} ></Route>
-            <Route path='/ChampionInfo' element={<ChampionInfo  />} ></Route>
-            <Route path='/Writing' element={<Writing  />}></Route>
-            <Route path='/BoardSeeMore'element={<BoardSeeMore  />}></Route>
+            <Route path='/Community' element={<Community userObj={userObj} />} ></Route>
+            <Route path='/ChampionInfo' element={<ChampionInfo userObj={userObj} />} ></Route>
+            <Route path='/Writing' element={<Writing userObj={userObj} />}></Route>
+            <Route path='/Community/:boardId'element={<BoardSeeMore userObj={userObj} />}></Route>
             <Route path='/SignUp' element={<SignUp  />}></Route>
             <Route path='/Login' element={<Login  />}></Route>
         </Routes>

@@ -20,10 +20,10 @@ function SignUp() {
             setPassword(value);
         }
     }
-    const onSubmit = async(e:any) =>{
+    const onSubmit = (e:any) =>{
         e.preventDefault();
         try{
-        await createUserWithEmailAndPassword(AuthService, email, password);
+        createUserWithEmailAndPassword(AuthService, email, password);
         navigate("/");
         alert("회원가입이 완료되었습니다.")
         }catch(error){

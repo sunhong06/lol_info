@@ -1,13 +1,15 @@
-import React,{ useState } from 'react'
+import React,{ useState,useEffect } from 'react'
 import Header from '../../components/Header';
 import { addDoc ,collection } from "firebase/firestore";
 import {db} from '../../fbase'
 import '../../scss/Community/Writing.scss';
 import { useNavigate } from 'react-router-dom';
+import Login from '../../components/Login';
 
-const Writing = ({userObj}:any) => {
+const Writing = () => {
     const [titleValue,setTitleValue] = useState("");
     const [detailValue,setDetailValue] = useState("");
+    const [optionValue,setOptionValue] = useState("자유");
     const navigate = useNavigate();
 
     const addBoard = async(e:any) => {
@@ -15,25 +17,32 @@ const Writing = ({userObj}:any) => {
        await addDoc(collection(db, "Board"), {
             title: titleValue,
             detail:detailValue,
+            option:optionValue,
             createAt:Date.now(),
             view:0,
             up:0
           });
           navigate('/Community')
     }
-
+    const HandleChangeOption = (e:React.ChangeEvent<HTMLSelectElement>) =>{
+        setOptionValue(e.target.value);
+        console.log(e.target.value)
+        if(e.target.value == "선택"){
+            alert("카테고리를 선택해주세요.")
+        }
+    }
   return (
-    <>
+        <>
         <Header />
         <div className='writing_main'>
             <form className='writing_form' onSubmit={addBoard}>
                 <fieldset>
                     <legend className='blind'>글작성</legend>
                     <div className='title_box'>
-                        <select>
-                            <option>자유</option>
-                            <option>질문,답변</option>
-                            <option>쳄피언공략</option>
+                        <select  onChange={HandleChangeOption} required>                          
+                            <option  value="자유" >자유</option>
+                            <option value="질문,답변">질문,답변</option>
+                            <option value="챔피언공략">쳄피언공략</option>
                         </select>
                         <div className='title'>
                             <label htmlFor='title'>제목 : </label>

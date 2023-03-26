@@ -17,6 +17,16 @@
             margin-right: 5px;
         }
     }
+    .signUp{
+        width: 25%;
+        text-align: right;
+        a{
+            font-size: 0.8rem;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+    }
     .auth_form{
         width: 100%;
         fieldset{

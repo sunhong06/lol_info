@@ -42,11 +42,8 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
       detail.style.display = "block";
     }
   }
-
   const total = matchState.map((m:any)=>m.matchs.info.participants.map((p:any)=> p.totalDamageDealtToChampions));
   const number = total.map((t:any)=>t.slice(0,5));
-  // console.log(number)
-  // console.log(Math.max.apply(null,number));
   const maxNum = number.map((n:any)=> n.map((s:any)=> Math.floor((s / Math.max.apply(null, n))*100)))
   const percent1 = maxNum.map((nums:[]) => nums)
   const percent01 = percent1.shift()
@@ -58,6 +55,9 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
           {m.matchs.info.participants.map((p:any,index:number)=> p.summonerName === Smr[0].smrData.name ?
           <li key={m.matchs.info.gameCreation} className={p.win ? 'record_list' : 'record_list_lose'}>
             <div className='game_info'>
+              <div className='date'>{new Date(m.matchs.info.gameCreation).getFullYear()+
+          "/"+(new Date(m.matchs.info.gameCreation).getMonth()+1)+
+          "/"+new Date(m.matchs.info.gameCreation).getDate()}</div>
               <div className='game_time'>{Math.round(m.matchs.info.gameDuration / 60)}분 {Math.round(m.matchs.info.gameDuration%60)}초</div>
               <div className='game_type'>
                 {m.matchs.info.queueId === 450 && "무작위 총력전"}
@@ -276,7 +276,7 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
   )
 }
 
-// const dealt =  Math.floor((num / maxNum) * 100);
+
 const Progress = styled.div`
   width: 60px;
   height: 7px;

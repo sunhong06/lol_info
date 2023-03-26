@@ -1,30 +1,25 @@
 import React from 'react'
+import '../../scss/Community/comment.scss'
 
 function Comment({comment}:any) {
     const date = new Date(comment.createAt)
-    
-
+    console.log(comment)
   return (  
     <>
-    {comment.map((txt:any)=>{
-            <ul className='comment_list'>
             <li>
-                <span>{txt.name}</span>
-                <span>{
+                <span>{comment.id}</span>
+                <span className='date'>{
                      date.getFullYear()+
                      "/"+(date.getMonth()+1)+
-                     "/"+date.getDate()+
-                     "."+date.getHours()+
-                     "."+date.getMinutes()+
-                     "."+date.getSeconds()
+                     "/"+date.getDate()+ 
+                     " "+date.getHours()+
+                     ":"+date.getMinutes()
                     }</span>
-                <p className='commemt_field'>{txt.comment}</p>
+                <p className='commemt_field'>{comment.comment}</p>
                 <button type='button' className='remove'>삭제</button>
                 <button type='button' className='reply'>답글</button>
                 <p className='reply_field'></p>
             </li>
-        </ul>
-    })}
     </>
   )
 }

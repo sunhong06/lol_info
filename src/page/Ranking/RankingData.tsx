@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function RankingData({page,rank,Crank,GMrank,Mrank,search}:any) {
+function RankingData({page,rank,Crank,GMrank,Mrank}:any) {
   const [counting, setCounting] = useState(0);
 
 useEffect(()=>{
@@ -9,12 +9,7 @@ useEffect(()=>{
 },[page])
   return (
     <>
-        {rank.filter((ranking:any)=>{
-        if(search == ""){
-         return ranking;   
-        }else if(ranking.summonerName.toLowerCase().includes(search.toLowerCase())){
-         return ranking}
-        })
+        {rank
         .map((ranking:any,index:number)=> 
         <tr key={index}>
           <td><Link to={`/SummonerInfo/${ranking.summonerName}`} target="_blank">{counting+index+1-100}</Link></td>

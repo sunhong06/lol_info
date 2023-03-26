@@ -3,7 +3,8 @@ import {  signInWithEmailAndPassword,GoogleAuthProvider,GithubAuthProvider ,sign
 import { AuthService } from '../fbase'
 import {FaGithub,FaGoogle,FaFacebook} from 'react-icons/fa'
 import '../scss/Login.scss'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
+import { any } from 'prop-types';
 
 function Login() {
     const [email,setEmail] = useState("");
@@ -21,20 +22,26 @@ function Login() {
             setPassword(value);
         }
     }
-    const onSubmit = async(e:any) =>{
+    
+    const onSubmit = async (e:any) =>{
         e.preventDefault();
-        try{
-        await signInWithEmailAndPassword(AuthService, email, password);
-        navigate("/");
-        }catch(error){
-            if (error instanceof Error) {
-              setError("아이디, 비밀번호를 확인해주세요.");
-              console.log(error)
-              } else{
-                console.log(error)
-              }
-        }
+        await signInWithEmailAndPassword(AuthService, email, password)
+        .then((userCredential)=>{
+            const user = userCredential.user;
+            console.log(user)
+            navigate("/");
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            if(errorMessage == "Firebase: Error (auth/invalid-email)."){
+              setError("이메일형식이어야 합니다.")
+          } else if(errorMessage == "Firebase: Error (auth/user-not-found)."){
+            setError("아이디,비밀번호를 확인해주세요.")
+          }
+          });
     }
+
+
     const onClick = async(e:any) =>{
         const name = e.target.name;
         let provider:any;
@@ -48,9 +55,11 @@ function Login() {
        await signInWithPopup(AuthService, provider);
        navigate("/");
     }
+
+    
   return (
     <main className='auth_main'>
-        <h1><img src='imgs/lol_logo.png' />LOL.info</h1>
+        <h1><img src={process.env.PUBLIC_URL + '/imgs/lol_logo.png' }/>LOL.info</h1>
     <form onSubmit={onSubmit} className="auth_form">
         <fieldset>
             <legend className='blind'>로그인창</legend>
@@ -60,11 +69,12 @@ function Login() {
             <span className='authError'>{error}</span>
         </fieldset>
     </form>
+    <div className='signUp'><Link to="/SignUp">회원가입</Link></div>
     <div className='brand_btn'> 
-            <button onClick={onClick} name="GitHub"><FaGithub />GitHub로 로그인</button>
-            <button onClick={onClick} name="Google"><FaGoogle />Google로 로그인</button>
-            <button onClick={onClick} name="Facebook"><FaFacebook />Facebook로 로그인</button>
-        </div>
+        <button onClick={onClick} name="GitHub"><FaGithub />GitHub로 로그인</button>
+        <button onClick={onClick} name="Google"><FaGoogle />Google로 로그인</button>
+        <button onClick={onClick} name="Facebook"><FaFacebook />Facebook로 로그인</button>
+    </div>
 </main>
   )
 }

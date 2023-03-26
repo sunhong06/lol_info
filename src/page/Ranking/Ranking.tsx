@@ -13,9 +13,8 @@ const [Crank,setCRank] = useState([]);
 const [GMrank,setGMRank] = useState([]);
 const [Mrank,setMRank] = useState([]);
 const [search,setSearch] = useState("");
-const [searchData,setSearchData] = useState("");
+const [limit,setLimit] = useState(100)
 const [page, setPage] = useState<number>(1);
-const limit = 100;
 const offset = (page-1)*limit;
 
 const postsData = (posts:any) => {
@@ -26,7 +25,6 @@ const postsData = (posts:any) => {
   }
 }
 
-  const navigate = useNavigate()
   
   const getCRankingData = async() => {
     await lolAxios.get(`/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5`)

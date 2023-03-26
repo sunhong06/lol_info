@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import '../../scss/Community/CommunityBoard.scss'
 import { doc, increment, updateDoc } from "firebase/firestore";
 import {db} from '../../fbase'
-function CommunityBoard({board,num,nickname}:any) {
+function CommunityBoard({board,num,nickname,boardListData}:any) {
   const [view,setView] = useState(0);
   const date = new Date(board.createAt)
 
@@ -20,14 +20,14 @@ function CommunityBoard({board,num,nickname}:any) {
 
   return (
     <tr className='board' key={board.id} onClick={views}>
-    <td><Link to="/BoardSeeMore" state={{board,nickname}}>{num}</Link></td>
-    <td><Link to="/BoardSeeMore" state={{board,nickname}}>{board.title}</Link></td>
-    <td><Link to="/BoardSeeMore" state={{board,nickname}}>{nickname}</Link></td>
-    <td><Link to="/BoardSeeMore" state={{board,nickname}}>{
+    <td><Link to={`/Community/${board.id}`} state={{board,nickname}}>{num}</Link></td>
+    <td><Link to={`/Community/${board.id}`} state={{board,nickname}}>[{board.option}]  {board.title}</Link></td>
+    <td><Link to={`/Community/${board.id}`} state={{board,nickname}}>{nickname}</Link></td>
+    <td><Link to={`/Community/${board.id}`} state={{board,nickname}}>{
               date.getFullYear()+
           "/"+(date.getMonth()+1)+
           "/"+date.getDate()}</Link></td>
-    <td><Link to="/BoardSeeMore" state={{board,nickname}}>{board.up}</Link></td>
+    <td><Link to={`/Community/${board.id}`} state={{board,nickname}}>{board.up}</Link></td>
     </tr>
   )
 }

@@ -9,7 +9,6 @@ function Champion({champs,setDetail,champions,search}:any) {
     champions(champ)
     setDetail(true);
   }
-
   return (
     <>
       {Object.entries(champs).filter((champ:any)=>{

@@ -27,6 +27,11 @@
                 border-top: 1px solid #d9d9d9;
                 border-bottom: 1px solid #d9d9d9;
                 color: #666;
+                &:nth-child(2){
+                    font-size: 0.9rem;
+                    padding-left: 2rem;
+                    text-align: left;
+                }
                 a{
                     display: block;
                 }
