@@ -14,10 +14,10 @@ const summonerData = createSlice({
   },
   reducers:{
     LgInfo: (state:any,action) => {
-      state.data.push({smrData:action.payload})
+      state.data.push(action.payload)
     },
     MatchInfo:(state:any,action) =>{
-      state.record.push({matchs:action.payload})
+      state.record.push(action.payload)
     },
     Create:(state:any,action)=>{
       state.gameCreate.push(action.payload)

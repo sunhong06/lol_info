@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../scss/ChampionSearch.scss'
+import '../../scss/Champion/ChampionSearch.scss'
 
 function ChampoinSearch({setSearch,search}:any) {
 

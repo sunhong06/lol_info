@@ -1,7 +1,7 @@
 import React, {useRef} from 'react'
 import { connect } from 'react-redux';
 import useOnclickOutside from '../../hook/useOnclickOutside';
-import "../../scss/ChampDetail.scss"
+import "../../scss/Champion/ChampDetail.scss"
 import championfull from "../../data/championFull.json"
 import { ChampionsRemove } from '../../store/store';
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Header from '../../components/Header';
 import {FaSearch} from 'react-icons/fa';
-import '../../scss/Home.scss';
+import '../../scss/Home/Home.scss';
 import { useNavigate } from 'react-router-dom';
 
 

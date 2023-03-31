@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import '../../scss/ChampionRotations.scss'
+import '../../scss/Champion/ChampionRotations.scss'
 import { Champions } from '../../store/store';
 
 function ChampionRotations({rotation,champs,setDetail,champions}:any) {

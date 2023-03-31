@@ -92,7 +92,8 @@ function BoardSeeMore() {
         <ul className='comment_list'>
             <>
             {commentList.map((comment:any)=>(
-                <Comment comment={comment} />
+                board.id == comment.createId &&
+                <Comment comment={comment} key={comment.id} />
             ))}
             </>
         </ul>

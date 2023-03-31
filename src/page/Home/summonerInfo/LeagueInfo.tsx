@@ -2,14 +2,14 @@ import React, { useEffect,useState } from 'react'
 import { summonerLeague } from '../../../type/type';
 import {lolAxios} from '../../../axios';
 import { connect } from 'react-redux';
-import '../../../scss/LeagueInfo.scss'
+import '../../../scss/Home/SummonerInfo/LeagueInfo.scss'
 
 
 function LeagueInfo({Smr}:any) {
   const [summonerLeagueData, setSummonerLeagueData] = useState<summonerLeague[]>([]);
   
   const getLeagueData = async() => {
-    await lolAxios.get(`/league/v4/entries/by-summoner/${Smr.map((s:any) =>s.smrData.id)}`)
+    await lolAxios.get(`/league/v4/entries/by-summoner/${Smr.map((s:any) =>s.id)}`)
       .then(((res2) => {
         setSummonerLeagueData(res2.data);
       })).catch((error) => {

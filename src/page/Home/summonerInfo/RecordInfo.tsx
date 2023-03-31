@@ -5,19 +5,19 @@ import { match } from '../../../type/type';
 import {FiChevronDown} from 'react-icons/fi';
 import { MatchInfo } from '../../../store/store'
 import styled from 'styled-components'
-import '../../../scss/RecordInfo.scss'
+import '../../../scss/Home/SummonerInfo/RecordInfo.scss'
 
 function RecordInfo({matchState,matchsInfo,Smr}:any) {
-  const [max,setMax] = useState([])
-
+  const [startingNum,setStartingNum] = useState(20);
+  const [countingNum,setCountingNum] = useState(40);
   const getMatchData = async() => {
-    await asiaLolAxios.get(`match/v5/matches/by-puuid/${Smr.map((s: { smrData: { puuid: number } }) =>s.smrData.puuid)}/ids`)
+    await asiaLolAxios.get(`match/v5/matches/by-puuid/${Smr.map((s:any) =>s.puuid)}/ids`)
+    // start=0&count=100&
       .then((res3)=>{
       res3.data.map(async (i: string)=>{
          await  asiaLolAxios.get(`match/v5/matches/${i}`)
          .then((res)=>{
          matchsInfo(res.data)
-         setMax(res.data)
          }).catch((error)=>{
           console.log(error)
          })
@@ -25,15 +25,32 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
     }).catch((error)=>{
       console.log(error)
     })
-  } 
+  }
 
-
+  
   useEffect(()=>{
   getMatchData();
   },[Smr])
 
-
-
+  const handleMoreClick = async() =>{
+    await asiaLolAxios.get(`match/v5/matches/by-puuid/${Smr.map((s:any) =>s.puuid)}/ids?start=${startingNum}&count=${countingNum}&`)
+    // start=0&count=100&
+      .then((res3)=>{
+      res3.data.map(async (i: string)=>{
+         await  asiaLolAxios.get(`match/v5/matches/${i}`)
+         .then((res)=>{
+         matchsInfo(res.data)
+         }).catch((error)=>{
+          console.log(error)
+         })
+      })
+    }).catch((error)=>{
+      console.log(error)
+    })
+    setStartingNum(startingNum+20);
+    setCountingNum(countingNum+20);
+  }
+  
   const onDetail = (e:any) =>{
     const detail = e.target.parentElement.parentElement.nextElementSibling;
       if(detail.style.display === "block"){
@@ -42,29 +59,28 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
       detail.style.display = "block";
     }
   }
-  const total = matchState.map((m:any)=>m.matchs.info.participants.map((p:any)=> p.totalDamageDealtToChampions));
-  const number = total.map((t:any)=>t.slice(0,5));
-  const maxNum = number.map((n:any)=> n.map((s:any)=> Math.floor((s / Math.max.apply(null, n))*100)))
-  const percent1 = maxNum.map((nums:[]) => nums)
-  const percent01 = percent1.shift()
+   
+  const arr = [...matchState];
+  const matchStateSort = arr.sort((x:any,y:any)=> x.info.gameCreation - y.info.gameCreation).reverse()
+
   return (
     <>
         <ul className='record'>
-        {matchState.map((m:any)=>( 
+        {matchStateSort.map((m:any)=>(
           <>
-          {m.matchs.info.participants.map((p:any,index:number)=> p.summonerName === Smr[0].smrData.name ?
-          <li key={m.matchs.info.gameCreation} className={p.win ? 'record_list' : 'record_list_lose'}>
+          {m.info.participants.map((p:any)=> p.summonerName == Smr[0].name ?
+          <li key={m.info.gameCreation} className={p.win ? 'record_list' : 'record_list_lose'}>
             <div className='game_info'>
-              <div className='date'>{new Date(m.matchs.info.gameCreation).getFullYear()+
-          "/"+(new Date(m.matchs.info.gameCreation).getMonth()+1)+
-          "/"+new Date(m.matchs.info.gameCreation).getDate()}</div>
-              <div className='game_time'>{Math.round(m.matchs.info.gameDuration / 60)}분 {Math.round(m.matchs.info.gameDuration%60)}초</div>
+              <div className='date'>{new Date(m.info.gameCreation).getFullYear()+
+          "/"+(new Date(m.info.gameCreation).getMonth()+1)+
+          "/"+new Date(m.info.gameCreation).getDate()}</div>
+              <div className='game_time'>{Math.round(m.info.gameDuration / 60)}분 {Math.round(m.info.gameDuration%60)}초</div>
               <div className='game_type'>
-                {m.matchs.info.queueId === 450 && "무작위 총력전"}
-                {m.matchs.info.queueId === 900 && "U.R.F"}
-                {m.matchs.info.queueId === 420 && "솔랭"}
-                {m.matchs.info.queueId === 430 && "일반"}
-                {m.matchs.info.queueId === 440 && "자유 5:5랭크"}
+                {m.info.queueId === 450 && "무작위 총력전"}
+                {m.info.queueId === 900 && "U.R.F"}
+                {m.info.queueId === 420 && "솔랭"}
+                {m.info.queueId === 430 && "일반"}
+                {m.info.queueId === 440 && "자유 5:5랭크"}
                 </div>
                 <div className='game_result'>
                   {p.win
@@ -88,7 +104,7 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                   </div>
                   <div className='stats'>
                     <div className='kill_invo'>
-                      킬관여 {m.matchs.info.teams.map((team:any)=>(team.teamId === p.teamId &&
+                      킬관여 {m.info.teams.map((team:any)=>(team.teamId === p.teamId &&
                       Math.round((p.kills+p.assists) / team.objectives.champion.kills * 100)
                       ))}%
                     </div>
@@ -118,7 +134,7 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
               </div>
             <div className='summoners'>
             <ul>
-              {m.matchs.info.participants.map((p:any,index:number)=>( index > 4 ? 
+              {m.info.participants.map((p:any,index:number)=>( index > 4 ? 
                 <li>
                   <a href={`/lol_info/SummonerInfo/${p.summonerName}`} target="_blank" className="smr_link">
                   <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />
@@ -129,7 +145,7 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
               ))}
               </ul>
               <ul>
-              {m.matchs.info.participants.map((p:any,index:number)=>( index < 5 ? 
+              {m.info.participants.map((p:any,index:number)=>( index < 5 ? 
                 <li>
                   <a href={`/lol_info/SummonerInfo/${p.summonerName}`} className="smr_link">
                   <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />
@@ -161,7 +177,7 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                 <caption>종합</caption>
               <thead>
                 <tr>
-                  <th >{m.matchs.info.participants.map((p:any)=> p.summonerName === Smr[0].smrData.name ? p.win ? "패배팀" : "승리팀" : null)}</th>
+                  <th >{m.info.participants.map((p:any)=> p.summonerName === Smr[0].name ? p.win ? "패배팀" : "승리팀" : null)}</th>
                   <th>KDA</th>
                   <th colSpan={2}>피해량</th>
                   <th>골드</th>
@@ -170,11 +186,11 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                 </tr>
               </thead>
               <tbody>
-              {m.matchs.info.participants.map((p:any,index:number)=>(index > 4 &&
+              {m.info.participants.map((p:any,index:number)=>(index > 4 &&
                 <tr key={index} className={p.win ? "win" : "lose"}>
                 <td className='s_name'><img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />{p.summonerName}</td>
                     <td className='detail_kda'>
-                        <span>{p.kills}/<span className='deaths'>{p.deaths}</span>/{p.assists} ({m.matchs.info.teams.map((team:any)=>(team.teamId === p.teamId &&
+                        <span>{p.kills}/<span className='deaths'>{p.deaths}</span>/{p.assists} ({m.info.teams.map((team:any)=>(team.teamId === p.teamId &&
                       Math.round((p.kills+p.assists) / team.objectives.champion.kills * 100)
                       ))}%)</span>
                         <span className={
@@ -219,7 +235,7 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                 </colgroup>
                 <thead>
                 <tr>
-                  <th >{m.matchs.info.participants.map((p:any)=> p.summonerName === Smr[0].smrData.name ? p.win ? "승리팀" : "패배팀" : null )}</th>
+                  <th >{m.info.participants.map((p:any)=> p.summonerName == Smr[0].name ? p.win ? "승리팀" : "패배팀" : null )}</th>
                   <th>KDA</th>
                   <th colSpan={2}>피해량</th>
                   <th>골드</th>
@@ -228,11 +244,11 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                 </tr>
               </thead>
               <tbody>
-                     {m.matchs.info.participants.map((p:any,index:number)=>( index<5 &&
+                     {m.info.participants.map((p:any,index:number)=>( index<5 &&
                 <tr key={index} className={p.win ? "win" : "lose"}>
                 <td className='s_name'><img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />{p.summonerName}</td>
                     <td className='detail_kda'>
-                        <span>{p.kills}/<span className='deaths'>{p.deaths}</span>/{p.assists} ({m.matchs.info.teams.map((team:any)=>(team.teamId === p.teamId &&
+                        <span>{p.kills}/<span className='deaths'>{p.deaths}</span>/{p.assists} ({m.info.teams.map((team:any)=>(team.teamId === p.teamId &&
                       Math.round((p.kills+p.assists) / team.objectives.champion.kills * 100)
                       ))}%)</span>
                         <span className={
@@ -244,7 +260,7 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
                     </td>
                     <td className='damage'>
                       <Progress>
-                      <Dealt dealt={percent01.splice(0,1)}/>
+                      
                       </Progress>
                         {p.totalDamageDealtToChampions}
                     </td>
@@ -270,7 +286,8 @@ function RecordInfo({matchState,matchsInfo,Smr}:any) {
             </div>
           </li>
           </>
-              ))}
+))}
+<li className='more'><button onClick={handleMoreClick}>더보기</button></li>
         </ul>
     </>
   )
@@ -298,7 +315,7 @@ function mapStateToProps(state:any){
 
   function mapDispatchToProps(dispatch:any){
     return {
-        matchsInfo: (matchs:any) => dispatch(MatchInfo(matchs))
+        matchsInfo: (matchs:void) => dispatch(MatchInfo(matchs))
     }
   }
 

@@ -3,7 +3,7 @@ import React, { useState,useEffect } from 'react'
 import { connect } from 'react-redux';
 import { lolAxios } from '../../axios';
 import Header from '../../components/Header';
-import '../../scss/ChampionInfo.scss'
+import '../../scss/Champion/ChampionInfo.scss'
 import ChampDetail from './ChampDetail';
 import Champion from './Champion';
 import ChampionRotations from './ChampionRotations';

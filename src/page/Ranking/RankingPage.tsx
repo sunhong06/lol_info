@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate,useLocation, createSearchParams } from 'react-router-dom';
-import '../../scss/Pageing.scss';
-import axios from "axios";
+import '../../scss/Ranking/RankingPage.scss';
 
-function Pageing({page,limit,totalPosts,setPage}:any) {
+function RankingPage({page,limit,totalPosts,setPage}:any) {
     const location = useLocation();
     const numPages = Math.ceil(totalPosts/limit);
     const [currPage, setCurrPage] = useState(page)
@@ -59,4 +58,4 @@ function Pageing({page,limit,totalPosts,setPage}:any) {
   )
 }
 
-export default Pageing;
+export default RankingPage;

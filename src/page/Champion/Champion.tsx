@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import '../../scss/champion.scss'
+import '../../scss/Champion/champion.scss'
 import { Champions } from '../../store/store';
 
 function Champion({champs,setDetail,champions,search}:any) {

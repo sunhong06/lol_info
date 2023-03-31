@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header';
 import {lolAxios} from '../../axios';
-import '../../scss/ranking.scss';
+import "../../scss/Ranking/ranking.scss"
 import RankingData from './RankingData';
-import Pageing from './Pageing';
-import { createSearchParams, useNavigate } from 'react-router-dom';
+import RankingPage from './RankingPage';
 import RankSearch from './RankSearch';
 
 
@@ -112,7 +111,7 @@ const postsData = (posts:any) => {
           <RankingData search={search} page={page} rank={postsData(highRankingDataSort)} Crank={Crank} GMrank={GMrank} Mrank={Mrank}   />
         </tbody>
       </table>
-      <Pageing setPage={setPage} page={page} limit={limit} totalPosts={totalPosts} rank={postsData(highRankingDataSort)}  />
+      <RankingPage setPage={setPage} page={page} limit={limit} totalPosts={totalPosts} rank={postsData(highRankingDataSort)}  />
     </main>
     </>
     )
