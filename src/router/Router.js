@@ -27,7 +27,7 @@ function Router() {
       }
     })
   },[])
-  console.log(userObj)
+
   return (
     <BrowserRouter  basename={process.env.PUBLIC_URL}>
       {/* {login == false && <Login />} */}
