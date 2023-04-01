@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { AuthService } from '../fbase';
 import '../scss/SignUp.scss'
 import { useNavigate } from 'react-router-dom';
+import { async } from '@firebase/util';
 
 function SignUp() {
     const [email,setEmail] = useState("");
@@ -20,20 +21,22 @@ function SignUp() {
             setPassword(value);
         }
     }
-    const onSubmit = (e:any) =>{
+    const onSubmit = async(e:any) =>{
         e.preventDefault();
         try{
-        createUserWithEmailAndPassword(AuthService, email, password);
-        navigate("/");
+          const a =   await createUserWithEmailAndPassword(AuthService, email, password);
+        console.log(a)
+          navigate("/");
+        console.log('성공')
         alert("회원가입이 완료되었습니다.")
         }catch(error){
+            console.log(error)
             if (error instanceof Error) {
               if(error.message == "Firebase: Error (auth/email-already-in-use)."){
                   setError("이미가입된회원입니다.");
                  } else if(error.message == "Firebase: Password should be at least 6 characters (auth/weak-password)."){
                     setError("비밀번호가 6자 이상이여야 합니다.");
                 }
-
               }
         }
     }
