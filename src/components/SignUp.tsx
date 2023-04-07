@@ -24,13 +24,10 @@ function SignUp() {
     const onSubmit = async(e:any) =>{
         e.preventDefault();
         try{
-          const a =   await createUserWithEmailAndPassword(AuthService, email, password);
-        console.log(a)
+          await createUserWithEmailAndPassword(AuthService, email, password);
           navigate("/");
-        console.log('성공')
         alert("회원가입이 완료되었습니다.")
         }catch(error){
-            console.log(error)
             if (error instanceof Error) {
               if(error.message == "Firebase: Error (auth/email-already-in-use)."){
                   setError("이미가입된회원입니다.");

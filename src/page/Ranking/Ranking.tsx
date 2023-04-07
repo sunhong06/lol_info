@@ -82,7 +82,7 @@ const postsData = (posts:any) => {
     <>
     <Header />
     <main className='rank_main'>
-      <div>** 챌린져 ~ 마스터까지의 랭킹만 나옵니다 **</div>
+      <div className='notion'>** 챌린져 ~ 마스터까지의 랭킹만 나옵니다 **</div>
       <form className='rank_form'>
         <fieldset>
             <legend className='blind'>소환사 랭킹 검색창</legend>
