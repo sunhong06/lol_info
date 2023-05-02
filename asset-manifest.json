@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/lol_info/static/css/main.9cf2a384.css",
-    "main.js": "/lol_info/static/js/main.0acf3d3c.js",
+    "main.css": "/lol_info/static/css/main.8f54978a.css",
+    "main.js": "/lol_info/static/js/main.22d80907.js",
     "index.html": "/lol_info/index.html",
-    "main.9cf2a384.css.map": "/lol_info/static/css/main.9cf2a384.css.map",
-    "main.0acf3d3c.js.map": "/lol_info/static/js/main.0acf3d3c.js.map"
+    "main.8f54978a.css.map": "/lol_info/static/css/main.8f54978a.css.map",
+    "main.22d80907.js.map": "/lol_info/static/js/main.22d80907.js.map"
   },
   "entrypoints": [
-    "static/css/main.9cf2a384.css",
-    "static/js/main.0acf3d3c.js"
+    "static/css/main.8f54978a.css",
+    "static/js/main.22d80907.js"
   ]
 }
