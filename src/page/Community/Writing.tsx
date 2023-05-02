@@ -4,9 +4,8 @@ import { addDoc ,collection } from "firebase/firestore";
 import {db} from '../../fbase'
 import '../../scss/Community/Writing.scss';
 import { useNavigate } from 'react-router-dom';
-import Login from '../../components/Login';
 
-const Writing = () => {
+const Writing = ({userObj}:any) => {
     const [titleValue,setTitleValue] = useState("");
     const [detailValue,setDetailValue] = useState("");
     const [optionValue,setOptionValue] = useState("자유");
@@ -20,7 +19,8 @@ const Writing = () => {
             option:optionValue,
             createAt:Date.now(),
             view:0,
-            up:0
+            up:0,
+            user:userObj.email
           });
           navigate('/Community')
     }

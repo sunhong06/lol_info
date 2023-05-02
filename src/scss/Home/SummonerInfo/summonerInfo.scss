@@ -2,11 +2,10 @@
 
 .summoner_main{
     width: 100%;
-    background-color: #eee;
+    background-color: #fff;
     box-sizing: border-box;
     .summoner_main_inner{
-        width: 1150px;
-        min-width: 1150px;
+        width: 100%;
         margin: 0 auto;
         padding-top: 50px;
         &::after{
@@ -14,12 +13,17 @@
             display: block;
             clear: both;
         }
+        .lol_info{
+            display: flex;
+            justify-content: flex-start;
+        }
         .summoner_info{
             position: relative;
             display: flex;
             align-items: center;
             border-bottom: 1px solid #999;
             padding-bottom: 50px;
+            margin-left: 1rem;
             .profile_icon{
                 width: 100px;
                 height: 100px;

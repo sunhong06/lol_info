@@ -1,14 +1,18 @@
 .category{
-    margin: 100px 50px 0 0;
+    padding: 100px 50px 10px 0;
     flex: 1;
     ul{
+        
+        display: flex;
+        justify-content: center;
         li{
-            a{
+            padding-right: 2rem;
+            button{
                 position: relative;
-                font-weight: bold;
+                font-weight: 600;
                 display: inline-block;
-                font-size: 22px;
-                padding: 20px 0 20px;
+                font-size: 16px;
+                padding-bottom: 0.5rem;
                 &::after{
                     position: absolute;
                     bottom: 0;

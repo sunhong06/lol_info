@@ -13,10 +13,15 @@ import RankSearch from '../page/Ranking/RankSearch';
 import { AuthService } from "../fbase";
 import { onAuthStateChanged } from "firebase/auth";
 import '../scss/common.scss'
+import { db } from '../fbase' 
+import { collection } from "firebase/firestore";
 
 function Router() {
+
   const [login,setLogin] = useState(false);
   const [userObj, setUserObj] = useState(null);
+
+  
   useEffect(()=>{
     onAuthStateChanged(AuthService, (user) => {
       if (user) {
@@ -31,18 +36,18 @@ function Router() {
   return (
     <BrowserRouter  basename={process.env.PUBLIC_URL}>
       {/* {login == false && <Login />} */}
-        <Routes> 
-            <Route path='/' exact={true} element={<Home userObj={userObj}  />} ></Route>
-            <Route path='/SummonerInfo/:summonerName' element={<SummonerInfo userObj={userObj} />}></Route>
-            <Route path='/Ranking' element={<Ranking userObj={userObj} />} ></Route>
-            <Route path='/Ranking/search/:search' element={<RankSearch  />}></Route>
-            <Route path='/Community' element={<Community userObj={userObj} />} ></Route>
-            <Route path='/ChampionInfo' element={<ChampionInfo userObj={userObj} />} ></Route>
-            <Route path='/Writing' element={<Writing userObj={userObj} />}></Route>
-            <Route path='/Community/:boardId'element={<BoardSeeMore userObj={userObj} />}></Route>
-            <Route path='/SignUp' element={<SignUp  />}></Route>
-            <Route path='/Login' element={<Login  />}></Route>
-        </Routes>
+      <Routes> 
+        <Route path='/' exact={true} element={<Home userObj={userObj}  />} ></Route>
+        <Route path='/SummonerInfo/:summonerName' element={<SummonerInfo userObj={userObj} />}></Route>
+        <Route path='/Ranking' element={<Ranking userObj={userObj} />} ></Route>
+        <Route path='/Ranking/search/:search' element={<RankSearch  />}></Route>
+        <Route path='/Community' element={<Community userObj={userObj} />} ></Route>
+        <Route path='/ChampionInfo' element={<ChampionInfo userObj={userObj} />} ></Route>
+        <Route path='/Writing' element={<Writing userObj={userObj} />}></Route>
+        <Route path='/Community/:boardId'element={<BoardSeeMore userObj={userObj} />}></Route>
+        <Route path='/SignUp' element={<SignUp  />}></Route>
+        <Route path='/Login' element={<Login  />}></Route>
+      </Routes>
     </BrowserRouter>
   )
 }

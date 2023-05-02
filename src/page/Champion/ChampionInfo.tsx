@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState,useEffect } from 'react'
-import { connect } from 'react-redux';
 import { lolAxios } from '../../axios';
 import Header from '../../components/Header';
 import '../../scss/Champion/ChampionInfo.scss'
@@ -8,8 +7,9 @@ import ChampDetail from './ChampDetail';
 import Champion from './Champion';
 import ChampionRotations from './ChampionRotations';
 import ChampoinSearch from './ChampoinSearch';
+import { useSelector } from 'react-redux';
 
-function ChampionInfo(champsInfo:any) {
+function ChampionInfo() {
   const [champs,setChamps] = useState([]);
   const [rotation, setRotation] = useState<any>([]);
   const [detail, setDetail] = useState<boolean>(false);
@@ -46,19 +46,15 @@ function ChampionInfo(champsInfo:any) {
       <ChampionRotations rotation={rotation} champs={champs} setDetail={setDetail} />
       <ChampoinSearch  setSearch={setSearch} search={search} />
       <ul className='champion_table'>
-            <Champion setDetail={setDetail} champs={champs} search={search} />
+          <Champion setDetail={setDetail} champs={champs} search={search} />
       </ul>
-      {detail && <ChampDetail setDetail={setDetail} />}
+          {detail && <ChampDetail setDetail={setDetail} />}
     </main>
     </>
   )
 }
 
-function mapStateToProps(state:any){
-  return { 
-    champsInfo:state.Champ
- }
-}
 
 
-export default connect(mapStateToProps) (ChampionInfo);
+
+export default (ChampionInfo);

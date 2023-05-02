@@ -8,18 +8,29 @@ import CommunityBoard from './CommunityBoard';
 import { db } from '../../fbase' 
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import CommunityPage from './CommunityPage';
+import { useSelector } from 'react-redux';
+import Login from '../../components/Login';
 
-const Community = () => {
+const Community = ({userObj}:any) => {
   const [boardList,setBoardList] = useState([]);
   const [select,setSelect] = useState();
-  const [page, setPage] = useState(1); //페이지
-const limit = 10; // posts가 보일 최대한의 갯수
-const offset = (page-1)*limit; // 시작점과 끝점을 구하는 offset
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10);
+  
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const communitySearchSeletor = useSelector((state:any)=> state.summonerData.communitySearchArray);
+  
 
 
-    const result = boardList.slice(offset, offset + limit);
-
-  const Bring = async() =>{
+  // 페이지네이션을 위해 slice를 이용해 배열을 나눔
+    const BoardResult = boardList.slice(indexOfFirstItem, indexOfLastItem);
+   // 검색결과값
+    const searchResult = communitySearchSeletor.slice(indexOfFirstItem, indexOfLastItem);
+     
+// firebase를 통해 db에 게시글저장
+    const Bring = async() =>{
     const BoardRef = collection(db, "Board");
     const querySnapshot = await getDocs(query(BoardRef, orderBy("createAt", "desc")));
     const newArray:any = [];
@@ -28,67 +39,95 @@ const offset = (page-1)*limit; // 시작점과 끝점을 구하는 offset
     });
     setBoardList(newArray)
   }
+
+  
+  // 카테고리에 맞게 게시글이 나눔
    const catagorys = (name: any)=>{
     setSelect(name)
    }
+
   useEffect(()=>{
     Bring();
-  },[])
+    
+  },[communitySearchSeletor])
 
   return (
       <>
+      {userObj ?
+      <>
       <Header />
-      <main className='cmnt_main'>
-        <>
-              <Category  catagorys={catagorys} /> 
-        </>
-        <div className='cmnt_box'>
-            <button className='Writing_btn'><Link to="/Writing"  className='writing'>글작성</Link></button>
-    <table className='cmnt_table'>
-    <caption className='blind'>커뮤니티</caption>
-    <colgroup>
-      <col className='number' />
-      <col className='title' />
-      <col className='user' />
-      <col className='date' />
-      <col className='rmd' />
-    </colgroup>
-    <thead>
-      <tr>
-        <th scope='col'>번호</th>
-        <th scope='col'>제목</th>
-        <th scope='col'>작성자</th>
-        <th scope='col'>등록일</th>
-        <th scope='col'>추천</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      {result.filter((board:any)=>{
-        if(undefined == select){
-          return board
-        } else
-        if(board.option === select){
-          return board
-        } else if(select === "전체"){
-          return board
-        } 
-})
+       <main className='cmnt_main'>
+         <Category catagorys={catagorys} /> 
+         <h2 className='cmnt_title'>커뮤니티</h2>
+         <div className='cmnt_box'>
+     <table className='cmnt_table'>
+     <caption className='blind'>커뮤니티</caption>
+     <colgroup>
+       <col className='number' />
+       <col className='title' />
+       <col className='user' />
+       <col className='date' />
+       <col className='rmd' />
+     </colgroup>
+     <thead>
+       <tr>
+         <th scope='col'>번호</th>
+         <th scope='col'>제목</th>
+         <th scope='col'>작성자</th>
+         <th scope='col'>등록일</th>
+         <th scope='col'>추천</th>
+       </tr>
+     </thead>
+     <tbody>
+       {communitySearchSeletor.length == 0 ?
+       BoardResult.filter((board:any)=>{
+       if(undefined == select){
+         return board
+       } else
+       if(board.option === select){
+         return board
+       } else if(select === "전체"){
+         return board
+       }})
        .map((board:any,idx:number)=>(
            <CommunityBoard
+           name={board.user}
            key={board.id}
-            num={idx+1}
-            board={board}
-       />
-            ))}   
-    </tbody>
-  </table>
-        <CommunityPage  limit={limit} page={page} totalBoard={boardList.length} setPage={setPage} />
-        <CommunitySearch boardList={boardList} />
-      </div>
-      </main>
+           num={idx+1}
+           board={board}
+         />))
+         :
+         searchResult.filter((board:any)=>{
+           if(undefined == select){
+             return board
+           } else
+           if(board.option === select){
+             return board
+           } else if(select === "전체"){
+             return board
+           } })
+           .map((board:any,idx:number)=>(
+               <CommunityBoard
+               name={board.user}
+               key={board.id}
+               num={idx+1}
+               board={board}
+           />))}   
+     </tbody>
+   </table>
+         <button className='Writing_btn'><Link to="/Writing"  className='writing'>글작성</Link></button>
+         <CommunityPage  setCurrentPage={setCurrentPage} result={BoardResult} searchResult={searchResult} currentPage={currentPage} itemsPerPage={itemsPerPage} boardList={boardList}   />
+         <CommunitySearch boardList={boardList} />
+       </div>
+     </main>
+     </>
+     :
+     
+     <Login />
+      }
+      
       </>
   )
 }
 
-export default Community;
+export default React.memo(Community);

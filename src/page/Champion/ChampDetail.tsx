@@ -1,35 +1,39 @@
 import React, {useRef} from 'react'
-import { connect } from 'react-redux';
 import useOnclickOutside from '../../hook/useOnclickOutside';
 import "../../scss/Champion/ChampDetail.scss"
-import championfull from "../../data/championFull.json"
-import { ChampionsRemove } from '../../store/store';
+import { useSelector,useDispatch } from 'react-redux';
 
 
-function ChampDetail({setDetail,champsInfo,ChampionRemove}:any) {
+function ChampDetail({setDetail}:any) {
     const ref = useRef<HTMLDivElement>(null);
-    const onClose =() =>{
-      setDetail(false);
-      ChampionRemove(champsInfo)
-    }
+    const dispatch = useDispatch();
+    const championSelector = useSelector((state:any)=> state.summonerData.ChampArray);
 
+    // x버튼 클릭시 닫음
+    const onClose =() =>{
+      dispatch({type:"summonerDataReducer/ChampionsRemove"})
+      setDetail(false);
+    }
+    
+    // 없는 스킨은 빈값
     const notImg = (e:React.BaseSyntheticEvent) =>{
       e.target.parentNode.outerHTML =""
     }
 
-
+    // 디테일 화면 밖 클릭 시 창 닫음
     const HeadlesideClick = () =>{
       onClose();
     }
     useOnclickOutside(ref,  HeadlesideClick);
+
   return (
     <div className='presentation'>
         <div className='wrapper_Detail'>
             <div className='Detail' ref={ref}>
             <span className='Detail_close' onClick={onClose}>X</span>
-            {champsInfo.map((info:any)=> 
-            <>
-            <img className='champ_img' key={info[1].key} src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${info[0]}_0.jpg`} alt={info[0]} />
+            {championSelector.map((info:any)=> 
+            <div key={info[1].key}>
+            <img className='champ_img'  src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${info[0]}_0.jpg`} alt={info[0]} />
             <div className='champ_info'>
               <span className='champ_name'>{info[1].name},</span>
               <span className='champ_title'>{info[1].title}</span>
@@ -37,45 +41,25 @@ function ChampDetail({setDetail,champsInfo,ChampionRemove}:any) {
                 <h2>SKILLS</h2>
                 <>
                 <ul className='champ_skills'>
-                  <li className='p_skill'>
+                  <li key={info[1].key} className='p_skill'>
                   <img src={`${process.env.PUBLIC_URL}/imgs/passive/${info[0]}_P.png`} alt={`${info[0]}Passive`} />
                   <span className='skill_command'>P</span>
-                  <div className='skill_ex'>
-                    {/* <h3>{full[1].passive.name}</h3>
-                    <h3>{full[1].passive.description}</h3> */}
-                    </div>
                   </li>
                   <li className='q_skill'>
                     <img src={`${process.env.PUBLIC_URL}/imgs/spell/${info[0]}Q.png`} alt={`${info[0]}q_Skill`} />
                     <span className='skill_command'>Q</span>
-                    <div className='skill_ex'>
-                      {/* <h3>{full[1].spells[0].name}</h3>
-                      <p>{full[1].spells[0].description}</p> */}
-                    </div>
                   </li>
                   <li className='w_skill'>
                     <img src={`${process.env.PUBLIC_URL}/imgs/spell/${info[0]}W.png`} alt={`${info[0]}w_Skill`} />
                     <span className='skill_command'>W</span>
-                    <div className='skill_ex'>
-                      {/* <h3>{full[1].spells[1].name}</h3>
-                      <p>{full[1].spells[1].description}</p> */}
-                    </div>
                   </li>
                   <li className='e_skill'>
                     <img src={`${process.env.PUBLIC_URL}/imgs/spell/${info[0]}E.png`} alt={`${info[0]}e_Skill`} />
                     <span className='skill_command'>E</span>
-                    <div className='skill_ex'>
-                      {/* <h3>{full[1].spells[2].name}</h3>
-                      <p>{full[1].spells[2].description}</p> */}
-                    </div>
                   </li>
                   <li className='r_skill'>
                     <img src={`${process.env.PUBLIC_URL}/imgs/spell/${info[0]}R.png`} alt={`${info[0]}r_Skill`} />
                     <span className='skill_command'>R</span>
-                    <div className='skill_ex'>
-                      {/* <h3>{full[1].spells[3].name}</h3>
-                      <p>{full[1].spells[3].description}</p> */}
-                    </div>
                   </li>
                 </ul>
                   </>
@@ -86,7 +70,7 @@ function ChampDetail({setDetail,champsInfo,ChampionRemove}:any) {
                     )}  
                 </ul>
             </div>
-            </>
+            </div>
             )}
             </div>
         </div>   
@@ -94,16 +78,5 @@ function ChampDetail({setDetail,champsInfo,ChampionRemove}:any) {
   )
 }
 
-function mapStateToProps(state:any){
-  return { 
-    champsInfo:state.Champ
- }
 
-}
-function mapDispatchToProps(dispatch:any){
-  return {
-    ChampionRemove: (champs:any) => dispatch(ChampionsRemove(champs))
-}
-}
-
-export default connect(mapStateToProps,mapDispatchToProps) (ChampDetail);
+export default (ChampDetail);

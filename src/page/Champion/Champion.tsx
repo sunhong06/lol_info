@@ -1,14 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux';
 import '../../scss/Champion/champion.scss'
-import { Champions } from '../../store/store';
+import { useDispatch } from 'react-redux';
 
-function Champion({champs,setDetail,champions,search}:any) {
-  
+function Champion({champs,setDetail,search}:any) {
+  const dispatch = useDispatch();
   const HandleClickChampInfo = (champ:any) =>{
-    champions(champ)
+    dispatch({type:"summonerDataReducer/ChampionData", payload:champ})
     setDetail(true);
   }
+
   return (
     <>
       {Object.entries(champs).filter((champ:any)=>{
@@ -28,16 +28,8 @@ function Champion({champs,setDetail,champions,search}:any) {
     </>
   )
 }
-function mapStateToProps(state:any){
-  return { 
-    champsInfo:state.Champ
- }
-}
 
-function mapDispatchToProps(dispatch:any){
-  return {
-    champions: (champs:any) => dispatch(Champions(champs))
-}
-}
 
-export default connect(mapStateToProps,mapDispatchToProps) (Champion);
+
+
+export default (Champion);

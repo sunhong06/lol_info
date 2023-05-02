@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../scss/Header.scss';
 import { onAuthStateChanged } from "firebase/auth";
 import { AuthService } from '../fbase'
+import React from 'react';
 
 
 
@@ -10,13 +11,12 @@ function Header() {
   const [topNavi, setTopNavi] = useState(true); 
 
   const navigate = useNavigate();
-
+  
   const onLogOutClick = () =>{
     setTopNavi(true);
     AuthService.signOut();
     navigate("/");
     window.location.reload();
-
   }
 
   onAuthStateChanged(AuthService, (user) => {
@@ -24,7 +24,6 @@ function Header() {
       setTopNavi(false);
     } 
   });
-
 
 
 
@@ -57,4 +56,4 @@ function Header() {
   )
 }
 
-export default Header;
+export default React.memo(Header);

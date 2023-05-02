@@ -1,13 +1,12 @@
 import React from 'react'
-import { connect } from 'react-redux';
 import '../../scss/Champion/ChampionRotations.scss'
-import { Champions } from '../../store/store';
+import { useDispatch } from 'react-redux'
 
-function ChampionRotations({rotation,champs,setDetail,champions}:any) {
-
+function ChampionRotations({rotation,champs,setDetail}:any) {
+const dispatch = useDispatch();
 
 const handleDtailCilck = (champ:any) =>{
-    champions(champ)
+  dispatch({type:"summonerDataReducer/ChampionData", payload:champ})
     setDetail(true);  
 }
   return (
@@ -29,16 +28,5 @@ const handleDtailCilck = (champ:any) =>{
   )
 }
 
-function mapStateToProps(state:any){
-  return { 
-    champsInfo:state.Champ
- }
-}
 
-function mapDispatchToProps(dispatch:any){
-  return {
-    champions: (champs:any) => dispatch(Champions(champs))
-}
-}
-
-export default connect(mapStateToProps,mapDispatchToProps) (ChampionRotations);
+export default (ChampionRotations);
