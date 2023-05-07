@@ -16,13 +16,14 @@ const summonerData = createSlice({
     communitySearchArray:[],
     rankSearchArray:"",
     startingNum:0,
-    userObjArray:[]
+    userObjArray:[],
+    summonerNull:""
   },
   reducers:{
     CountingNum:(state:any,action)=>{
       state.startingNum = action.payload
     },
-    RankSearch:(state:any,action)=>{
+    RankSearch:(state,action)=>{
       state.rankSearchArray = action.payload
     },
     RankReset:(state:any,action)=>{
@@ -31,7 +32,7 @@ const summonerData = createSlice({
     RankDatas:(state:any,action)=>{
       state.rankDataArray.push(action.payload)
     },
-    CommunityClearSearched:(state:any,action) =>{
+    CommunityClearSearched:(state,action) =>{
       state.communitySearchArray = [];
     },
     CommunitySearched:(state:any,action) =>{
@@ -39,6 +40,9 @@ const summonerData = createSlice({
     },
     summoner:(state:any, action) =>{
       state.summonerDataArray.push(action.payload) 
+    },
+    summonerInfoNull:(state:any, action) =>{
+      state.summonerNull = action.payload
     },
     MatchInfo:(state:any,action) =>{
       state.recordArray.push(action.payload)

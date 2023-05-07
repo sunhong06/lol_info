@@ -6,6 +6,7 @@ import {FaSearch} from 'react-icons/fa';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { summoner } from '../../store/store';
+import { boards } from '../../type/type';
 
 function CommunitySearch({boardList}:any) {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -18,7 +19,7 @@ function CommunitySearch({boardList}:any) {
   const headleChangeSelect = (e:React.ChangeEvent<HTMLSelectElement>) =>{
     const value = e.target.value
     // 카테고리 선택
-    boardList.map((board:any)=>{
+    boardList.map((board:boards)=>{
      if(value === "title"){
        setSelect("title") 
        console.log(board.title)

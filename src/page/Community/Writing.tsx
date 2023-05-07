@@ -1,5 +1,4 @@
-import React,{ useState,useEffect } from 'react'
-import Header from '../../components/Header';
+import React,{ useState } from 'react'
 import { addDoc ,collection } from "firebase/firestore";
 import {db} from '../../fbase'
 import '../../scss/Community/Writing.scss';
@@ -11,7 +10,7 @@ const Writing = ({userObj}:any) => {
     const [optionValue,setOptionValue] = useState("자유");
     const navigate = useNavigate();
 
-    const addBoard = async(e:any) => {
+    const addBoard = async(e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
        await addDoc(collection(db, "Board"), {
             title: titleValue,
@@ -33,7 +32,6 @@ const Writing = ({userObj}:any) => {
     }
   return (
         <>
-        <Header />
         <div className='writing_main'>
             <form className='writing_form' onSubmit={addBoard}>
                 <fieldset>

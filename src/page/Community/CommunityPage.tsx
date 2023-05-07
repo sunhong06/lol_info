@@ -4,9 +4,9 @@ import '../../scss/Community/CommunityPage.scss'
 function CommunityPage({boardList,setCurrentPage,searchResult,itemsPerPage}:any) {
 const [activeClick,setActiveClick] = useState(1);
 
-  const handlePageClick = (e:any) => {
-    setActiveClick(e.target.id)
-    setCurrentPage(Number(e.target.id))
+  const handlePageClick = (e:React.MouseEvent<HTMLLIElement>) => {
+    setActiveClick(Number(e.currentTarget.id))
+    setCurrentPage(Number(e.currentTarget.id))
   };
   const HandlePrevClick = () => {
     // 현재 페이지 번호가 1이면 더 이상 이전 페이지가 없으므로 함수를 종료

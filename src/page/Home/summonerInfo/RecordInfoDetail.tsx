@@ -1,13 +1,14 @@
-import React from 'react'
-import RecordProgreeBar from './RecordProgreeBar';
+import React, { useRef } from 'react'
 import { Link } from 'react-router-dom';
+import { Participants, Team } from '../../../type/type';
 
 function RecordInfoDetail({getSummonerData,setStartingNum,dispatch,m,summonerDataSeletor}:any) {
+  const summonerRef = useRef<HTMLAnchorElement>(null);
 
-  const handleClickSummonerName = (e:any) =>{
+  const handleClickSummonerName = () =>{
     // 같이 한 플레이어 정보 클릭시
     // recordinfo컴포넌트에 각 유저이름정보를 가져와서 api를 불러와야함
-    getSummonerData(e.target.innerText);
+    getSummonerData(summonerRef.current?.innerText);
     setStartingNum(0);
     dispatch({type:"summonerDataReducer/ResetComponent"})
   }
@@ -28,7 +29,7 @@ function RecordInfoDetail({getSummonerData,setStartingNum,dispatch,m,summonerDat
           <caption>종합</caption>
           <thead>
             <tr>
-              <th >{m.info.participants.map((p:any)=> p.summonerName == summonerDataSeletor[0].name ? p.win ? "패배팀" : "승리팀" : null)}</th>
+              <th >{m.info.participants.map((p:Participants)=> p.summonerName == summonerDataSeletor[0].name ? p.win ? "패배팀" : "승리팀" : null)}</th>
               <th>KDA</th>
               <th colSpan={2}>피해량</th>
               <th>골드</th>
@@ -37,13 +38,13 @@ function RecordInfoDetail({getSummonerData,setStartingNum,dispatch,m,summonerDat
             </tr>
           </thead>
           <tbody>
-          {m.info.participants.map((p:any,index:number)=>(index > 4 &&
+          {m.info.participants.map((p:Participants,index:number)=>(index > 4 &&
             <tr key={index} className={p.win ? "win" : "lose"}>
-              <td className='s_name'><img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} /><Link to={`/SummonerInfo/${p.summonerName}`} onClick={handleClickSummonerName}>{p.summonerName}</Link></td>
+              <td className='s_name'><img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} /><Link to={`/SummonerInfo/${p.summonerName}`} ref={summonerRef} onClick={handleClickSummonerName}>{p.summonerName}</Link></td>
               <td className='detail_kda'>
                 <span>
                   {p.kills}/<span className='deaths'>{p.deaths}</span>/{p.assists} 
-                  ({m.info.teams.map((team:any)=>(team.teamId === p.teamId &&Math.round((p.kills+p.assists) / team.objectives.champion.kills * 100)))}%)
+                  ({m.info.teams.map((team:Team)=>(team.teamId === p.teamId &&Math.round((p.kills+p.assists) / team.objectives.champion.kills * 100)))}%)
                 </span>
                 <span className={
                 Number(((p.kills + p.assists) / p.deaths).toFixed(2)) > 5 ? "five" :
@@ -55,7 +56,6 @@ function RecordInfoDetail({getSummonerData,setStartingNum,dispatch,m,summonerDat
               </td>
               <td className='damage'> 
                 {p.totalDamageDealtToChampions}
-                <RecordProgreeBar totalDamageDealtToChampions={p.totalDamageDealtToChampions} />
               </td>
               <td className='damage'>
                 {p.totalDamageTaken}
@@ -86,7 +86,7 @@ function RecordInfoDetail({getSummonerData,setStartingNum,dispatch,m,summonerDat
           </colgroup>
           <thead>
             <tr>
-              <th >{m.info.participants.map((p:any)=> p.summonerName == summonerDataSeletor[0].name ? p.win ? "승리팀" : "패배팀" : null )}</th>
+              <th >{m.info.participants.map((p:Participants)=> p.summonerName == summonerDataSeletor[0].name ? p.win ? "승리팀" : "패배팀" : null )}</th>
               <th>KDA</th>
               <th colSpan={2}>피해량</th>
               <th>골드</th>
@@ -95,13 +95,13 @@ function RecordInfoDetail({getSummonerData,setStartingNum,dispatch,m,summonerDat
             </tr>
           </thead>
           <tbody>
-          {m.info.participants.map((p:any,index:number)=>( index<5 &&
+          {m.info.participants.map((p:Participants,index:number)=>( index<5 &&
             <tr key={index} className={p.win ? "win" : "lose"}>
-              <td className='s_name'><img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} /><Link to={`/SummonerInfo/${p.summonerName}`} onClick={handleClickSummonerName}>{p.summonerName}</Link></td>
+              <td className='s_name'><img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} /><Link to={`/SummonerInfo/${p.summonerName}`} ref={summonerRef} onClick={handleClickSummonerName}>{p.summonerName}</Link></td>
               <td className='detail_kda'>
                 <span>
                   {p.kills}/<span className='deaths'>{p.deaths}</span>/{p.assists} 
-                  ({m.info.teams.map((team:any)=>(team.teamId === p.teamId && Math.round((p.kills+p.assists) / team.objectives.champion.kills * 100)))}%)
+                  ({m.info.teams.map((team:Team)=>(team.teamId === p.teamId && Math.round((p.kills+p.assists) / team.objectives.champion.kills * 100)))}%)
                 </span>
                 <span className={
                   Number(((p.kills + p.assists) / p.deaths).toFixed(2)) > 5 ? "five" :

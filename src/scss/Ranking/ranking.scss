@@ -108,10 +108,14 @@
     tbody{
         height: 40px;
         tr{
+            cursor: pointer;
             &:hover{
                 background: #f9f9f9;
             }
             td{
+                .Odds{
+                    color: red;
+                }
                 font-size: 14px;
                 border-right: 1px solid #d9d9d9;
                 border-left: 1px solid #d9d9d9;

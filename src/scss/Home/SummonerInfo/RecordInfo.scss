@@ -156,13 +156,17 @@
             }
         }
         .ditails{
-
             width: 86px;
             height: 106px;
-            button{
-                width: 100%;
-                height: 100%;
-                font-size: 18px;
+            position: relative;
+            z-index: 9999;
+            cursor: pointer;
+            svg{
+                position: absolute;
+                top: 50%;
+                right: 50%;
+                transform:translate(50%);
+                z-index: -9999;
             }
         }
     }
@@ -171,6 +175,7 @@
 //버튼클릭시 자세히보기 디테일
 .detail{
     display: none;
+    
     .detail_box{
         &:after{
             content: "";

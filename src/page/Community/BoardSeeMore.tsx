@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '../../components/Header';
 import '../../scss/Community/BoardSeeMore.scss';
 import { useLocation,Link, useNavigate } from 'react-router-dom';
 import CommentInput from './CommentInput';
@@ -23,7 +22,6 @@ function BoardSeeMore({userObj}:any) {
 
   return (
     <>
-    <Header />
     <main className='board_main'>
     <h2 className='blind'>글작성</h2>
     <div className='board_box'>

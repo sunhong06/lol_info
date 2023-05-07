@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import Header from '../../components/Header';
 import '../../scss/Community/community.scss';
 import { Link } from 'react-router-dom';
 import Category from './Category';
@@ -10,6 +9,7 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import CommunityPage from './CommunityPage';
 import { useSelector } from 'react-redux';
 import Login from '../../components/Login';
+import { boards } from '../../type/type';
 
 const Community = ({userObj}:any) => {
   const [boardList,setBoardList] = useState([]);
@@ -42,7 +42,7 @@ const Community = ({userObj}:any) => {
 
   
   // 카테고리에 맞게 게시글이 나눔
-   const catagorys = (name: any)=>{
+   const catagorys = (name: React.SetStateAction<undefined>)=>{
     setSelect(name)
    }
 
@@ -55,7 +55,6 @@ const Community = ({userObj}:any) => {
       <>
       {userObj ?
       <>
-      <Header />
        <main className='cmnt_main'>
          <Category catagorys={catagorys} /> 
          <h2 className='cmnt_title'>커뮤니티</h2>
@@ -80,7 +79,7 @@ const Community = ({userObj}:any) => {
      </thead>
      <tbody>
        {communitySearchSeletor.length == 0 ?
-       BoardResult.filter((board:any)=>{
+       BoardResult.filter((board:boards)=>{
        if(undefined == select){
          return board
        } else
@@ -89,7 +88,7 @@ const Community = ({userObj}:any) => {
        } else if(select === "전체"){
          return board
        }})
-       .map((board:any,idx:number)=>(
+       .map((board:boards,idx:number)=>(
            <CommunityBoard
            name={board.user}
            key={board.id}
@@ -97,7 +96,7 @@ const Community = ({userObj}:any) => {
            board={board}
          />))
          :
-         searchResult.filter((board:any)=>{
+         searchResult.filter((board:boards)=>{
            if(undefined == select){
              return board
            } else
@@ -106,7 +105,7 @@ const Community = ({userObj}:any) => {
            } else if(select === "전체"){
              return board
            } })
-           .map((board:any,idx:number)=>(
+           .map((board:boards,idx:number)=>(
                <CommunityBoard
                name={board.user}
                key={board.id}

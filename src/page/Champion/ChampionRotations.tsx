@@ -1,11 +1,12 @@
 import React from 'react'
 import '../../scss/Champion/ChampionRotations.scss'
 import { useDispatch } from 'react-redux'
+import {  info } from '../../type/type';
 
 function ChampionRotations({rotation,champs,setDetail}:any) {
 const dispatch = useDispatch();
 
-const handleDtailCilck = (champ:any) =>{
+const handleDtailCilck = (champ:info) =>{
   dispatch({type:"summonerDataReducer/ChampionData", payload:champ})
     setDetail(true);  
 }

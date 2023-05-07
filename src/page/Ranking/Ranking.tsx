@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header';
 import {lolAxios} from '../../axios';
 import "../../scss/Ranking/ranking.scss"
 import RankingData from './RankingData';
@@ -8,10 +7,11 @@ import RankSearch from './RankSearch';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { createSearchParams, useNavigate } from 'react-router-dom';
+import { RootState, rank } from '../../type/type';
 
 
 function Ranking(){
-const [currentPage, setCurrentPage] = useState<any>(1);
+const [currentPage, setCurrentPage] = useState<string>("1");
 const [itemsPerPage, setItemsPerPage] = useState<number>(100);
 const navigate = useNavigate();
 const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const dispatch = useDispatch();
     const res = await lolAxios.get(`/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5`)
       try{
         dispatch({type:"summonerDataReducer/RankDatas", payload:res.data})
-      }catch(error:any){
+      }catch(error){
         console.log(error);
       }
       getGMRankingData();
@@ -43,7 +43,7 @@ const dispatch = useDispatch();
     const res3 = await lolAxios.get(`/league/v4/masterleagues/by-queue/RANKED_SOLO_5x5`)
       try{
         dispatch({type:"summonerDataReducer/RankDatas", payload:res3.data})
-      }catch(error:any){
+      }catch(error){
         console.log(error);
       }
   }
@@ -51,26 +51,26 @@ const dispatch = useDispatch();
   const rankDataSeletor = useSelector((state:any)=> state.summonerData.rankDataArray);
   const point ="leaguePoints";
   //  랭킹 순서대로 정렬, 읽기전용값 새배열로 복사
-  const rankDatas = rankDataSeletor.slice().map((rank:any)=>rank.entries.slice());
+  const rankDatas = rankDataSeletor.slice().map((rank:rank)=>rank.entries.slice());
   // 챌린져,그마,마스터 각각의 유저수
-  const rankLength = rankDataSeletor.slice().map((rank:any)=>rank.entries.length);
+  const rankLength = rankDataSeletor.slice().map((rank:rank)=>rank.entries.length);
   // 한배열안에 모두담음
   const flattenedRankDatas = rankDatas.reduce((acc:any, val:any) => acc.concat(val), []); 
   // 한배열안에 있는 값을 leaguePoint순으로 정렬함
-  const highRankingDataSort =  flattenedRankDatas.sort(((a:any,b:any)=>{
+  const highRankingDataSort =  flattenedRankDatas.sort(((a:rank,b:rank)=>{
     return   b[point] - a[point] 
   }))
   // 페이지네이션 사용으로 배열자르기(랭크순위추가)
-  const rankedData = highRankingDataSort.map((rank:any, index:number) => ({...rank, rank: index + 1}));
+  const rankedData = highRankingDataSort.map((rank:rank, index:number) => ({...rank, rank: index + 1}));
 
-  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfLastItem = Number(currentPage) * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentRankResult = rankedData.slice(indexOfFirstItem, indexOfLastItem);
 
   // 검색한 값
-  const rankSearchedSeletor = useSelector((state:any)=> state.summonerData.rankSearchArray)
+  const rankSearchedSeletor = useSelector((state:RootState)=> state.summonerData.rankSearchArray)
 
- 
+  console.log(rankSearchedSeletor)
   useEffect(()=>{
     navigate({
       search: `?${createSearchParams({page: currentPage})}`,
@@ -90,7 +90,6 @@ const dispatch = useDispatch();
 
   return (
     <>
-    <Header />
     <main className='rank_main'>
       <div className='notion'>** 챌린져 ~ 마스터까지의 랭킹만 나옵니다 **</div>
       <form className='rank_form'>

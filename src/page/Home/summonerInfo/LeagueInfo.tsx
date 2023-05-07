@@ -1,18 +1,17 @@
 import React from 'react'
-import { summonerLeague } from '../../../type/type';
 import '../../../scss/Home/SummonerInfo/LeagueInfo.scss'
 import { useSelector } from 'react-redux';
+import { League } from '../../../type/type';
 
 
 function LeagueInfo() {
-  
-  const LeagueDataSeletor = useSelector((state: any) => state.summonerData.LeagueDataArray);
-  
+  const LeagueDataSeletor = useSelector((state:any) => state.summonerData.LeagueDataArray);
+
   return (
   <>
     <div className='rank_box'>
-      {LeagueDataSeletor.map((leagueData:any)=>( leagueData[0]  ?
-      <div className='rank_data'>
+      {LeagueDataSeletor.map((leagueData:League,index:number)=>( leagueData[0]  ?
+      <div key={leagueData.leagueId} className='rank_data'>
         <h2>{leagueData.queueType == "RANKED_SOLO_5x5" ? "개인" : "자유"}랭크</h2>
         <div className='rank_info'>
           <img src={`../imgs/${leagueData[0].tier}.png`} alt={leagueData[0].tier} className="tier_img" />
@@ -24,11 +23,11 @@ function LeagueInfo() {
       </div>
       </div>     
       :
-      <div className='rank_data'>
+      <div key={index} className='rank_data'>
         <h2>개인랭크<span className='unranked'>Unranked</span></h2>
       </div>))}
-      {LeagueDataSeletor.map((leagueData:any)=>( leagueData[1]  ?
-      <div className='rank_data'>
+      {LeagueDataSeletor.map((leagueData:League,index:number)=>( leagueData[1]  ?
+      <div key={leagueData.leagueId} className='rank_data'>
         <h2>{leagueData.queueType == "RANKED_SOLO_5x5" ? "개인" : "자유"}랭크</h2>
         <div className='rank_info'>
           <img src={`../imgs/${leagueData[1].tier}.png`} alt={leagueData[1].tier} className="tier_img" />
@@ -40,7 +39,7 @@ function LeagueInfo() {
         </div>
       </div>     
       :
-      <div className='rank_data'>
+      <div key={index} className='rank_data'>
         <h2>자유랭크<span className='unranked'>Unranked</span></h2>
       </div>))}
     </div>

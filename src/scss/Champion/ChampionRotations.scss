@@ -1,8 +1,10 @@
 .champion_Rotation{
-    max-width: 1360px;
+    width: 1360px;
+    min-width: 1360px;
     margin: 30px auto;
     border-collapse: collapse;
     caption{
+        width: 100%;
         font-size: 18px;
         margin-bottom: 1rem;
     }

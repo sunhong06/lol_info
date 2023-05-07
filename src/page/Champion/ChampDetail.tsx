@@ -2,6 +2,7 @@ import React, {useRef} from 'react'
 import useOnclickOutside from '../../hook/useOnclickOutside';
 import "../../scss/Champion/ChampDetail.scss"
 import { useSelector,useDispatch } from 'react-redux';
+import { info } from '../../type/type';
 
 
 function ChampDetail({setDetail}:any) {
@@ -31,7 +32,7 @@ function ChampDetail({setDetail}:any) {
         <div className='wrapper_Detail'>
             <div className='Detail' ref={ref}>
             <span className='Detail_close' onClick={onClose}>X</span>
-            {championSelector.map((info:any)=> 
+            {championSelector.map((info:info)=> 
             <div key={info[1].key}>
             <img className='champ_img'  src={`http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${info[0]}_0.jpg`} alt={info[0]} />
             <div className='champ_info'>

@@ -2,9 +2,10 @@ import { doc, increment, onSnapshot, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { RiThumbUpFill } from 'react-icons/ri';
 import { db } from '../../fbase';
+import { boards } from '../../type/type';
 
 function CommunityRecommendation({board}:any) {
-    const [lookup,setLookUp] = useState<any>(0);
+    const [lookup,setLookUp] = useState(board.up);
 
     const HandleRecommendation = async() =>{
         const onRef = doc(db, "Board", board.id);
@@ -30,4 +31,4 @@ function CommunityRecommendation({board}:any) {
   )
 }
 
-export default CommunityRecommendation
+export default CommunityRecommendation;

@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
-import {  signInWithEmailAndPassword,GoogleAuthProvider,GithubAuthProvider ,signInWithPopup,FacebookAuthProvider } from "firebase/auth";
+import React, { useState,useEffect } from 'react'
+import {  signInWithEmailAndPassword,GoogleAuthProvider,GithubAuthProvider ,signInWithPopup,FacebookAuthProvider, onAuthStateChanged } from "firebase/auth";
 import { AuthService } from '../fbase'
 import {FaGithub,FaGoogle,FaFacebook} from 'react-icons/fa'
 import '../scss/Login.scss'
 import { useNavigate,Link } from 'react-router-dom';
-import { any } from 'prop-types';
+
 
 function Login() {
     const [email,setEmail] = useState("");
@@ -28,7 +28,7 @@ function Login() {
         await signInWithEmailAndPassword(AuthService, email, password)
         .then((userCredential)=>{
             const user = userCredential.user;
-            console.log(user)
+
             navigate("/");
         })
         .catch((error) => {
@@ -59,7 +59,7 @@ function Login() {
     
   return (
     <main className='auth_main'>
-        <h1><img src={process.env.PUBLIC_URL + '/imgs/lol_logo.png' }/>LOL.info</h1>
+        <h1 onClick={()=>navigate("/")}><img src={process.env.PUBLIC_URL + '/imgs/lol_logo.png' }/>LOL.info</h1>
     <form onSubmit={onSubmit} className="auth_form">
         <fieldset>
             <legend className='blind'>로그인창</legend>

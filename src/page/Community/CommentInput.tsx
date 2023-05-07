@@ -2,13 +2,14 @@ import { addDoc, collection, getDocs, orderBy, query } from 'firebase/firestore'
 import React,{useState,useEffect} from 'react'
 import {FaComment} from 'react-icons/fa'
 import { db } from '../../fbase';
-import Comment from './Comment';
+import Comment from './Comment'; 
+import { comments } from '../../type/type';
 
 function CommentInput({userObj,board,name}:any) {
     const [comment,setComment] = useState("");
     const [commentList,setCommentList] = useState<any>([]);
 
-    const handleCommentClick = async(e:any) => {
+    const handleCommentClick = async(e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await addDoc(collection(db, "Comment"), {
             comment:comment,
@@ -23,7 +24,7 @@ function CommentInput({userObj,board,name}:any) {
     const CommentLists = async() =>{
         const cmtRef = collection(db,"Comment");
         const querySnapshot = await getDocs(query(cmtRef, orderBy("createAt", "desc")));
-        const newArray:any = [];
+        const newArray: any = [];
         querySnapshot.forEach((doc: { data: () => any; id: any; }) => {
           newArray.push({...doc.data(), id:doc.id});
         });
@@ -48,7 +49,7 @@ function CommentInput({userObj,board,name}:any) {
     </div>
     <ul className='comment_list'>
         <>
-        {commentList.map((comment:any)=>(
+        {commentList.map((comment:comments)=>(
         board.id == comment.createId &&
         <Comment userObj={userObj} name={name} comment={comment} key={comment.id} />
         ))}

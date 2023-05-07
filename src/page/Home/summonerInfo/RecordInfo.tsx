@@ -1,5 +1,5 @@
-import React from 'react'
-import { match } from '../../../type/type';
+import React, { useRef } from 'react'
+import { Participants, Team, match } from '../../../type/type';
 import { FiChevronDown } from 'react-icons/fi';
 import '../../../scss/Home/SummonerInfo/RecordInfo.scss'
 import RecordInfoDetail from './RecordInfoDetail';
@@ -7,34 +7,37 @@ import { Link } from 'react-router-dom';
 
 
 function RecordInfo({setStartingNum,dispatch,getSummonerData,startingNum,summonerMatchData,summonerDataSeletor,matchinfoSelector}:any) {
+  const summonerRef = useRef<HTMLAnchorElement>(null);
 
-  const onDetail = (e: any) => {
-    const detail = e.target.parentElement.parentElement.nextElementSibling;
-    if (detail.style.display === "block") {
-      detail.style.display = "none";
-    } else {
-      detail.style.display = "block";
+  const onDetail = (e:any) => {
+    const detail = e.target.parentElement.nextElementSibling
+    if(detail.style.display == "none"){
+      detail.style.display = "block"
+    }else{
+      detail.style.display = "none"
     }
   }
+
   const handleClickMore = () =>{
      // 소환사 매치데이터 더보기
      summonerMatchData(summonerDataSeletor[0].puuid);
   }
 
-  const handleClickSummonerName = (e:any) =>{
+  const handleClickSummonerName = () =>{
     // 같이 한 플레이어 정보 클릭시
     // recordinfo컴포넌트에 각 유저이름정보를 가져와서 api를 불러와야함
-    getSummonerData(e.target.innerText);
+    const innerText = summonerRef.current?.innerText
+    getSummonerData(innerText);
     setStartingNum(0);
-    dispatch({type:"summonerDataReducer/ResetComponent"})
+    dispatch({type:"summonerDataReducer/ResetComponent"});
   }
   
   return (
   <>
     <ul className='record'>
-    {matchinfoSelector.map((m:any)=>(
+    {matchinfoSelector.map((m:match,index:number)=>(
       <>
-      {m.info.participants.map((p:any)=> p.summonerName == summonerDataSeletor[0].name ?
+      {m.info.participants.map((p:Participants)=> p.summonerName == summonerDataSeletor[0].name ?
       <li key={p.gameId} className={p.win ? 'record_list' : 'record_list_lose'}>
         <div className='game_info'>
           <div className='date'>
@@ -72,9 +75,11 @@ function RecordInfo({setStartingNum,dispatch,getSummonerData,startingNum,summone
               </span>
             </div>
             <div className='stats'>
-              <div className='kill_invo'>
-                킬관여{m.info.teams.map((team:any)=>(team.teamId === p.teamId && Math.round((p.kills+p.assists) / team.objectives.champion.kills * 100)))}%
-              </div>
+                킬관여{m.info.teams.map((team:Team)=>(team.teamId === p.teamId &&  
+                <div key={team.teamId} className='kill_invo'>
+                {Math.round((p.kills+p.assists) / team.objectives.champion.kills * 100)}%
+                </div>
+                ))}
               <div className='ward'>
                 제어와드 {p.sightWardsBoughtInGame}
               </div>
@@ -100,9 +105,9 @@ function RecordInfo({setStartingNum,dispatch,getSummonerData,startingNum,summone
         </div>
         <div className='summoners'>
           <ul>
-            {m.info.participants.map((p:any,index:number)=>( index > 4 ? 
-                <li>
-                  <Link to={`/SummonerInfo/${p.summonerName}`}  onClick={handleClickSummonerName} className="smr_link">
+            {m.info.participants.map((p:Participants,index:number)=>( index > 4 ? 
+                <li key={p.gameId} >
+                  <Link to={`/SummonerInfo/${p.summonerName}`} ref={summonerRef} onClick={handleClickSummonerName} className="smr_link">
                   <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />
                   {p.summonerName}
                   </Link>
@@ -110,9 +115,9 @@ function RecordInfo({setStartingNum,dispatch,getSummonerData,startingNum,summone
                 : undefined))}
               </ul>
               <ul>
-              {m.info.participants.map((p:any,index:number)=>( index < 5 ? 
-                <li>
-                  <Link to={`/SummonerInfo/${p.summonerName}`} onClick={handleClickSummonerName} className="smr_link">
+              {m.info.participants.map((p:Participants,index:number)=>( index < 5 ? 
+                <li key={p.gameId} >
+                  <Link to={`/SummonerInfo/${p.summonerName}`} ref={summonerRef} onClick={handleClickSummonerName} className="smr_link">
                   <img src={`http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/${p.championName}.png`} alt={p.championName} />
                     {p.summonerName}
                   </Link>
@@ -120,12 +125,10 @@ function RecordInfo({setStartingNum,dispatch,getSummonerData,startingNum,summone
                 : undefined))}
               </ul>
             </div>
-              <div className='ditails'>
-                <button onClick={onDetail}>
+              <div onClick={onDetail} className='ditails'>
                   <FiChevronDown />
-                </button>
               </div>
-          </li> : null)}
+          </li> : undefined)}
           <RecordInfoDetail getSummonerData={getSummonerData} setStartingNum={setStartingNum} dispatch={dispatch} m={m} summonerDataSeletor={summonerDataSeletor} />
         </>))}
       {/*   100개의 전적 이후에는 받아오는 값이 없음 */}

@@ -18,7 +18,7 @@ function Comment({userObj,name,comment}:any) {
     const handleEditClick = () =>{
       setEditing(true)
     }
-    const editCommentChange = (e:any) =>{
+    const editCommentChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
       setEditComment(e.target.value)
     }
     // 수정완료 버튼 

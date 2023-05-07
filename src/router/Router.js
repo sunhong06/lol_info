@@ -13,8 +13,7 @@ import RankSearch from '../page/Ranking/RankSearch';
 import { AuthService } from "../fbase";
 import { onAuthStateChanged } from "firebase/auth";
 import '../scss/common.scss'
-import { db } from '../fbase' 
-import { collection } from "firebase/firestore";
+import Header from '../components/Header';
 
 function Router() {
 
@@ -34,8 +33,9 @@ function Router() {
   },[])
 
   return (
+    <>
     <BrowserRouter  basename={process.env.PUBLIC_URL}>
-      {/* {login == false && <Login />} */}
+    <Header />
       <Routes> 
         <Route path='/' exact={true} element={<Home userObj={userObj}  />} ></Route>
         <Route path='/SummonerInfo/:summonerName' element={<SummonerInfo userObj={userObj} />}></Route>
@@ -49,6 +49,7 @@ function Router() {
         <Route path='/Login' element={<Login  />}></Route>
       </Routes>
     </BrowserRouter>
+    </>
   )
 }
 
