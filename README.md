@@ -1,5 +1,7 @@
 # lol_info
-<img src="https://capsule-render.vercel.app/api?type=waving&color=555&height=200&section=header&text=LOL_INFO&fontSize=90" />
+<div align="center">
+<img src="https://capsule-render.vercel.app/api?type=waving&color=4aa8d8&height=200&section=header&text=LOL_INFO&fontSize=90" />
+</div>
 
 <div align="center">
 <h3>Tech stack</h3>
