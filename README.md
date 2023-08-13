@@ -36,6 +36,15 @@
  <div align="center">
  redux-tootik으로 상태 관리
 </div>
+ <div align="center">
+ typescript로 타입지정
+</div>
+ <div align="center">
+  firebase DB 사용하여 게시판 구현
+</div>
+ <div align="center">
+  구글 검색API 사용하여 검색구현
+</div>
 <br/>
 
 
