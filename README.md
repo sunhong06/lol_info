@@ -1,5 +1,5 @@
 # lol_info
-<img src="https://capsule-render.vercel.app/api?type=waving&color=555&height=200&section=header&text=롤전적검색사이트(LOL_INFO)&fontSize=90" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=555&height=200&section=header&text=LOL_INFO&fontSize=90" />
 
 <div align="center">
 <h3>Tech stack</h3>
