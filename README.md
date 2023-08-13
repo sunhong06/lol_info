@@ -1,5 +1,5 @@
 # lol_info
-<img src="https://capsule-render.vercel.app/api?type=waving&color=555&height=200&section=header&text=롤전적검색사이트 (LOL_INFO)&fontSize=90" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=555&height=200&section=header&text=롤전적검색사이트(LOL_INFO)&fontSize=90" />
 
 <div align="center">
 <h3>Tech stack</h3>
@@ -38,8 +38,9 @@
  배포는 git-pages 를 이용해 배포하였습니다.
  </div>
 
+<div align="center">
  <a href="https://rlatjsghd123.github.io/lol_info/">lol_info사이트 보러가기</a>
- 
+</div> 
  
  
  
