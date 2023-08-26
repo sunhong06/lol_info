@@ -123,7 +123,7 @@ const dispatch = useDispatch();
       <RankingPage rankSearchedSeletor={rankSearchedSeletor} setCurrentPage={setCurrentPage}  highRankingDataSort={highRankingDataSort}  itemsPerPage={itemsPerPage}  />
     </main>
     </>
-    )
+    ) 
 }
 
 export default Ranking;
