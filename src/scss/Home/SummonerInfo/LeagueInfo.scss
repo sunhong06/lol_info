@@ -1,43 +1,53 @@
-.rank_box{
-    padding:0 5rem 0 1rem;
-    .rank_data{
-        border: 1px solid #000;
-        width: 330px;
-        margin-top: 1rem;
-        h2{
-            border-bottom: 1px solid #000;
-            font-size: 22px;
-            line-height: 1.7;
-            text-indent: 15px;
-            position: relative;
-            &:last-child{
-                border:none;
-            }
-            .unranked{
-                color: #d9d9d9;
-                font-size: 16px;
-                position: absolute;
-                right: 5px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-        }
-        .rank_info{
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            .tier_img{
-                width: 100px;
-                margin-right: 50px;  
-            }
-            .rank_info_list{
-                li{
-                    line-height: 1.5;
-                }
-                .win_rate{
-                    color: RED;
-                }
-            }
-        }
+.rank_box {
+  padding: 0 5rem 0 1rem;
+  .rank_data {
+    border: 1px solid #fff;
+    width: 330px;
+    margin-top: 1rem;
+    border-radius: 10px;
+    h2 {
+      border-bottom: 1px solid #fff;
+      font-size: 22px;
+      line-height: 1.7;
+      text-indent: 15px;
+      position: relative;
+      color: #fff;
+      &:last-child {
+        border: none;
+      }
+      .unranked {
+        color: #d9d9d9;
+        font-size: 16px;
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
     }
+    .rank_info {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      .tier_img {
+        width: 100px;
+        margin-right: 50px;
+      }
+      .rank_info_list {
+        li {
+          line-height: 1.5;
+          color: #fff;
+        }
+        .wins {
+          color: red;
+        }
+        .loses {
+          color: rgb(35, 35, 255);
+        }
+        .win_rate {
+          padding-left: 10px;
+          color: RED;
+        }
+      }
+    }
+  }
 }

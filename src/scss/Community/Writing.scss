@@ -1,58 +1,56 @@
-.writing_main{
+.writing_main {
+  background-color: #222;
+  height: calc(100vh - 92px);
+  .writing_inner {
     position: relative;
     width: 100%;
     max-width: 1360px;
     margin: 0 auto;
     display: flex;
-    .writing_form{
-        margin: 50px auto 0;
-        .title_box{
-            width: 100%;
-            display: flex;
-            padding-bottom: 2rem;
-            .title{
-                width: 100%;
-            label{
-                margin-right: 0.3rem;
-                margin-left: 1rem;
-            }
-                input{
-                    width: 93%;
-                    padding: 0.7rem 0.3rem;
-                }
-            }
+    .writing_form {
+      margin: 50px auto 0;
+      .title_box {
+        width: 100%;
+        display: flex;
+        padding-bottom: 2rem;
+        .title {
+          width: 100%;
+          label {
+            margin-right: 0.3rem;
+            margin-left: 1rem;
+          }
+          input {
+            width: 93%;
+            padding: 0.7rem 0.3rem;
+          }
         }
-        .writing_box{
-            margin-bottom: 1rem;
-            textarea{
-                width: 100%;
-            }
+      }
+      .writing_box {
+        margin-bottom: 1rem;
+        textarea {
+          width: 100%;
         }
-        .attach_box{
-            display: inline-block;
-            border: 1px solid #222;
-            padding: 0.5rem 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            label{
-                cursor: pointer;
-            }
-            &:hover{
-                background-color: #222;
-                color: #fff;
-            }
+      }
+      .attach_box {
+        display: inline-block;
+        border: 1px solid #fff;
+        padding: 0.5rem 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        color: #fff;
+        label {
+          cursor: pointer;
         }
-        .submit_btn{
-            float: right;
-            border: 1px solid #222;
-            padding: 0.5rem 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 1rem;
-            &:hover{
-                background-color: #222;
-                color: #fff;
-            }
-        }
+      }
+      .submit_btn {
+        float: right;
+        border: 1px solid #fff;
+        padding: 0.5rem 1rem;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1rem;
+      }
     }
+  }
 }

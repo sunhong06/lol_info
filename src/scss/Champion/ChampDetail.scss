@@ -1,90 +1,91 @@
-.presentation{
-    z-index: 1200;
-    position: absolute;
-    .wrapper_Detail{
-        position: fixed;
-        left: 0;
-        top: 0;
+.presentation {
+  z-index: 1200;
+  position: absolute;
+  .wrapper_Detail {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.71);
+    .Detail {
+      position: relative;
+      max-width: 1000px;
+      background: #111;
+      overflow-y: scroll;
+      border-radius: 8px;
+      box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0px 5px 8px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+      .Detail_close {
+        z-index: 1000;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      .champ_img {
         width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        background-color: rgba(0, 0, 0, 0.71);
-        .Detail{
-            position: relative;
-            max-width: 1000px;
-            background: #111;
-            overflow-y: scroll;
-            border-radius: 8px;
-            box-shadow: 0px 3px 5px -1px rgba(0,0,0, 0.2),
-            0px 5px 8px 0px rgba(0,0,0, 0.14),0px 1px 14px 0px rgba(0,0,0,0.12);
-            .Detail_close{
-                z-index: 1000;
-                position: absolute;
-                right: 20px;
-                top: 20px;
-                color: #fff;
-                font-weight: bold;
-                cursor: pointer;
-            }
-            .champ_img{
-                width: 100%;
-                object-fit: cover;
-                margin-bottom: 1rem;
-            }
-            .champ_info{
-                margin: 0 2rem;
-                color: #fff;
-                .champ_name{
-                    font-size: 20px;
-                    color: #f77;
-                    padding-right: 5px;
-                    font-weight: bold;
-                }
-                .champ_title{
-                    font-size: 14px;
-                    color: #f77;
-                }
-                .blurb{
-                    margin: 0.5rem 0;
-                    font-size: 16px;
-                    line-height: 1.5;
-                }
-                h2{
-                    margin: 0.5rem 0;
-                }
-                .champ_skills{
-                    display: flex;
-                    li{
-                        position: relative;
-                        margin-right: 10px;
-                        width: 50px;
-                        height: 50px;
-                        .skill_command{
-                            position: absolute;
-                            top: 0;
-                            right: 3px;
-                        }
-                        img{
-                            width: 100%;
-                        }
-                        .skill_ex{
-                            display: block;
-                        }
-                    }
-                }
-                .champ_skins{
-                    display: flex;
-                    li{
-                        position: relative;
-                        margin-right: 10px;
-                        width: 70px;
-                        img{
-                            width: 100%;
-                        }
-                    }
-                }
-            }
+        object-fit: cover;
+        margin-bottom: 1rem;
+      }
+      .champ_info {
+        margin: 0 2rem;
+        color: #fff;
+        .champ_name {
+          font-size: 20px;
+          color: #f77;
+          padding-right: 5px;
+          font-weight: bold;
         }
+        .champ_title {
+          font-size: 14px;
+          color: #f77;
+        }
+        .blurb {
+          margin: 0.5rem 0;
+          font-size: 16px;
+          line-height: 1.5;
+        }
+        h2 {
+          margin: 0.5rem 0;
+        }
+        .champ_skills {
+          display: flex;
+          li {
+            position: relative;
+            margin-right: 10px;
+            width: 50px;
+            height: 50px;
+            .skill_command {
+              position: absolute;
+              top: 0;
+              right: 3px;
+            }
+            img {
+              width: 100%;
+            }
+            .skill_ex {
+              display: block;
+            }
+          }
+        }
+        .champ_skins {
+          display: flex;
+          li {
+            position: relative;
+            margin-right: 10px;
+            width: 70px;
+            img {
+              width: 100%;
+            }
+          }
+        }
+      }
     }
+  }
 }

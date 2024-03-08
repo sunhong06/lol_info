@@ -1,76 +1,44 @@
 // community.scss
 
-
-.cmnt_main{
+.cmnt_main {
+  width: 100%;
+  height: 100%;
+  background-color: #222;
+  .inner_cmnt {
     position: relative;
     max-width: 1360px;
     margin: 0 auto;
-    .category{
-        padding: 100px 50px 10px 0;
-        flex: 1;
-        ul{
-            
-            display: flex;
-            justify-content: center;
-            li{
-                padding-right: 2rem;
-                button{
-                    position: relative;
-                    font-weight: 600;
-                    display: inline-block;
-                    font-size: 16px;
-                    padding-bottom: 0.5rem;
-                    &::after{
-                        position: absolute;
-                        bottom: 0;
-                        left: 0;
-                        content: "";
-                        display: block;
-                        width: 100%;
-                        height: 5px;
-                        background-color: #61dafb;
-                        transform: scale(0,1);
-                        transition: all 0.2s linear 0s;
-                        transform-origin: left center;
-                    }
-                    &:hover::after{
-                        transform: scale(1);
-                    }
-                    &:hover{
-                        color: #61dafb;
-                    }
-                    
-                }
-            }
-        }
-    }
-    .cmnt_title{
+
+    .cmnt_flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 100px 0 0 0;
+      .cmnt_title {
         padding-bottom: 1rem;
-        border-bottom: 3px solid #000;
+        color: #fff;
+      }
     }
-    .cmnt_box{
-        flex: 5;
-        .Writing_btn{
-            float: right;
-            margin-bottom: 1rem;
-            &::after{
-                content: "";
-                display: block;
-                clear: both;
-            }
-            a{
-                color: #999;
-                font-size: 16px;
-                display: block;
-                border: 2px solid #999;
-                font-weight: 600;
-                border-radius: 0.3rem;
-                padding: 0.5rem 1rem;
-                &:hover{
-                    border: 2px solid #d3d3d3;
-                    background-color: #d3d3d3;
-            }
+    .cmnt_box {
+      flex: 5;
+      .Writing_btn {
+        float: right;
+        margin-bottom: 1rem;
+        &::after {
+          content: "";
+          display: block;
+          clear: both;
         }
+        a {
+          color: #d1d1d1;
+          font-size: 16px;
+          display: block;
+          border: 2px solid #d1d1d1;
+          font-weight: 600;
+          border-radius: 0.3rem;
+          padding: 0.5rem 1rem;
+        }
+      }
     }
-    }
+  }
 }

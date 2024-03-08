@@ -1,22 +1,26 @@
 // RankingPage.scss
-.pages{
-    width: 100%;
-    padding: 50px 0;
-    text-align: center;
-    ul{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        li{ 
-            cursor: pointer;
-            padding: 8px 15px;
-            border: 1px solid #eee;
-            border-radius: 10px;
-            margin: 0 4px;
-            &.active {
-                background-color: skyblue;
-                color: #fff;
-            }
-        }
-    }   
+.page {
+  width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  .page_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    li {
+      cursor: pointer;
+      margin: 0 4px;
+      color: #fff;
+      a {
+        color: #fff;
+        padding: 8px 15px;
+        display: block;
+      }
+      &.selected,
+      &:hover {
+        background-color: skyblue;
+        color: #fff;
+      }
+    }
+  }
 }

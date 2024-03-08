@@ -1,33 +1,33 @@
-.cmnt_form{
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
-     fieldset{
-         .cmnt_input{
-             height: 35px;
-             text-align: center;
-             display: flex;
-             align-items: center;
-             justify-content: center;
-             select{
-                 width: 100px;
-                 height: 100%;
-                 border-color: #999;
-             }
-             input{
-                padding-left: 10px;
-                 width: 200px;
-                 height: 100%;
-                 
-             }
-             button{
-                 width: 50px;
-                 height: 100%;
-                 border: 1px solid rgb(118, 118, 118);
-                 border-left: none;
-                 background: transparent;
-                 border-color: #999;
-             }
-         }
-     }
- }
+.cmnt_form {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  fieldset {
+    .cmnt_input {
+      height: 35px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      select {
+        width: 100px;
+        height: 100%;
+        border-color: #fff;
+      }
+      input {
+        padding-left: 10px;
+        width: 200px;
+        height: 100%;
+      }
+      button {
+        width: 50px;
+        height: 100%;
+        border: 1px solid #fff;
+        border-left: none;
+        background: transparent;
+        border-color: #fff;
+        color: #fff;
+      }
+    }
+  }
+}

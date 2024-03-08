@@ -1,18 +1,20 @@
-.champs{
-    display: inline-block;
-    width:80px;
-    padding-right: 10px;
+.champs {
+  display: inline-block;
+  width: 50px;
+  padding-right: 10px;
+  overflow: hidden;
+  color: #fff;
+  button {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+  .champ_name {
+    width: 100%;
+    text-align: center;
+    font-size: 8px;
     overflow: hidden;
-    button{
-        width: 100%;
-        img{
-           width: 100%;
-        }
-    }
-    .champ_name{
-            width: 100%;
-            text-align: center;
-            font-size: 12px;
-            overflow: hidden;
-    }
+    height: 11px;
+  }
 }

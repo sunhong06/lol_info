@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import LeagueInfo from "./summonerInfo/LeagueInfo";
+import LeagueInfo from "../../components/util/home/summonerInfo/League/LeagueInfo/LeagueInfo";
 import "../../scss/Home/SummonerInfo/summonerInfo.scss";
-import RecordInfo from "./summonerInfo/RecordInfo";
-import { asiaLolAxios, lolAxios } from "../../axios";
+import RecordInfo from "../../components/util/home/summonerInfo/Record/RecordInfo/RecordInfo";
+import { asiaLolAxios, lolAxios } from "../../axios/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import axios, { Canceler } from "axios";
 import { summoner } from "../../type/type";
-import { TailSpin } from "react-loader-spinner";
+import Loading from "../../components/loading/Loading";
+import { v4 as uuidv4 } from "uuid";
 
 function SummonerInfo() {
   const [loding, setLoding] = useState(true);
@@ -56,6 +57,7 @@ function SummonerInfo() {
       }
     }
   };
+
   // 소환사 매치데이터
   const summonerLeagueInfo = async (SummonerId: number) => {
     const res1 = await lolAxios.get(
@@ -65,7 +67,7 @@ function SummonerInfo() {
   };
 
   // 소환사 리그정보
-  const summonerMatchData = async (Summonerpuuid: number) => {
+  const summonerMatchData = async (Summonerpuuid: string) => {
     const res2 = await asiaLolAxios.get(
       `match/v5/matches/by-puuid/${Summonerpuuid}/ids?start=${startingNum}&count=20&`
     );
@@ -110,10 +112,7 @@ function SummonerInfo() {
       <main className="summoner_main">
         <div className="summoner_main_inner">
           {loding ? (
-            <div className="bar">
-              <p>로딩중..</p>
-              <TailSpin color="#61dafb" height={80} width={80} />
-            </div>
+            <Loading />
           ) : (
             summonerDataSeletor.map((s: summoner) =>
               s.name ? (
@@ -127,13 +126,10 @@ function SummonerInfo() {
                     <span className="summoner_level">{s.summonerLevel}</span>
                   </div>
                   <div className="lol_info">
-                    <LeagueInfo />
+                    <LeagueInfo key={uuidv4()} />
                     <RecordInfo
-                      setStartingNum={setStartingNum}
-                      dispatch={dispatch}
-                      getSummonerData={getSummonerData}
+                      key={uuidv4()}
                       startingNum={startingNum}
-                      summonerMatchData={summonerMatchData}
                       summonerDataSeletor={summonerDataSeletor}
                       matchinfoSelector={matchInfoSelector}
                     />

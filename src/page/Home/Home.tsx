@@ -1,16 +1,17 @@
-import '../../scss/Home/Home.scss';
-import HomeSearch from './HomeSearch';
+import Container from "../../components/Container/Container";
+import "../../scss/Home/Home.scss";
+import HomeSearch from "../../components/util/home/HomeSearch";
+import HomeBanner from "../../components/util/home/HomeBanner";
 
 function Home() {
   return (
-    <>
-    <main className='home_main'>
-      <h1 className='home_title'><img src={process.env.PUBLIC_URL + '/imgs/lol_logo.png'} />LOL.info</h1>
+    <Container>
+      <main className="home_main">
+        <HomeBanner />
         <HomeSearch />
-    </main>
-    </>
-  )
+      </main>
+    </Container>
+  );
 }
 
 export default Home;
-

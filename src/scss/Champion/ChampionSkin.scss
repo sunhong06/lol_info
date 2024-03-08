@@ -1,0 +1,11 @@
+.champ_skins {
+  display: flex;
+  li {
+    position: relative;
+    margin-right: 10px;
+    width: 70px;
+    img {
+      width: 100%;
+    }
+  }
+}

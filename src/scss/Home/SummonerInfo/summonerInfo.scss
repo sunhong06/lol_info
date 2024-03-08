@@ -1,69 +1,63 @@
-
-.summoner_main{
+.summoner_main {
+  width: 100%;
+  background-color: #222;
+  box-sizing: border-box;
+  .summoner_main_inner {
     width: 100%;
-    background-color: #fff;
-    box-sizing: border-box;
-    .summoner_main_inner{
-        width: 100%;
-        margin: 0 auto;
-        padding-top: 50px;
-        .bar{
-            p{
-                margin-bottom: 10px;
-            }
-            position: absolute;
-            bottom: 50%;
-            left: 50%;
-            transform: translate(-50%,50%);
-            text-align: center;
-        }
-        &::after{
-            content: "";
-            display: block;
-            clear: both;
-        }
-        .lol_info{
-            display: flex;
-            justify-content: flex-start;
-        }
-        .summoner_info{
-            position: relative;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #999;
-            padding-bottom: 50px;
-            margin-left: 1rem;
-            .profile_icon{
-                width: 100px;
-                height: 100px;
-                border-radius: 20px;
-            }
-            .summoner_id{
-                font-size: 30px;
-                padding-left: 10px;
-            }
-            .summoner_level{
-                z-index: 1;
-                position: absolute;
-                bottom: 40px;
-                left: 50px;
-                font-size: 12px;
-                transform: translateX(-50%);
-                background-color: #222;
-                color: #fff;
-                padding: 3px;
-                border-radius: 5px;
-            }
-        }
+    margin: 0 auto;
+    padding-top: 50px;
+    .bar {
+      p {
+        margin-bottom: 10px;
+      }
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform: translate(-50%, 50%);
+      text-align: center;
     }
+    &::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+    .lol_info {
+      display: flex;
+      justify-content: flex-start;
+    }
+    .summoner_info {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #999;
+      padding-bottom: 50px;
+      margin-left: 1rem;
+      .profile_icon {
+        width: 100px;
+        height: 100px;
+        border-radius: 20px;
+      }
+      .summoner_id {
+        font-size: 30px;
+        color: #fff;
+        padding-left: 15px;
+      }
+      .summoner_level {
+        z-index: 1;
+        position: absolute;
+        bottom: 40px;
+        left: 50px;
+        font-size: 12px;
+        transform: translateX(-50%);
+        background-color: #222;
+        color: #fff;
+        padding: 3px;
+        border-radius: 5px;
+      }
+    }
+  }
 }
-.no_info{
-    width: 100%;
-    height: 100vhWx;
+.no_info {
+  width: 100%;
+  height: 100vh;
 }
- 
-            
- 
-
-
-

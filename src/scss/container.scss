@@ -1,0 +1,11 @@
+.container {
+  width: 100%;
+  height: calc(100vh - 92px);
+  background-color: #222;
+}
+
+.wrapper {
+  position: relative;
+  min-height: calc(100vh - 92px);
+  margin: 0 auto;
+}

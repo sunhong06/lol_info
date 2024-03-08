@@ -1,30 +1,32 @@
-.champion_Rotation{
-    width: 1360px;
-    min-width: 1360px;
-    margin: 30px auto;
-    border-collapse: collapse;
-    caption{
-        width: 100%;
-        font-size: 18px;
-        margin-bottom: 1rem;
-    }
-    tbody{
-        tr{
-            .champ_name{
-                padding-right: 3px;
-                text-align: center;
-                font-size: 14px;
-            }
-            .rotations{
-                padding-right: 3px;
-                width: 80px;
-                button{
-                    width: 100%;
-                    img{
-                        width: 100%;
-                    }
-                }
-            }
+.champion_Rotation {
+  width: 1250px;
+  min-width: 1250px;
+  margin: 30px auto;
+  border-collapse: collapse;
+  caption {
+    width: 100%;
+    font-size: 12px;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  tbody {
+    tr {
+      .champ_name {
+        padding-right: 3px;
+        text-align: center;
+        font-size: 14px;
+        color: #fff;
+      }
+      .rotations {
+        padding-right: 3px;
+        width: 50px;
+        button {
+          width: 100%;
+          img {
+            width: 100%;
+          }
         }
+      }
     }
+  }
 }
