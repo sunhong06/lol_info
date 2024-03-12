@@ -33,12 +33,12 @@ function Header() {
         <nav className="gnb">
           <ul>
             <li className="logo">
-              <Link to="/">
+              <Link to="/lol_info">
                 <img src={process.env.PUBLIC_URL + "/imgs/lol_logo.png"} />
               </Link>
             </li>
             <li>
-              <Link to="/">홈</Link>
+              <Link to="/lol_info">홈</Link>
             </li>
             <li>
               <Link to="/Ranking">랭킹</Link>
