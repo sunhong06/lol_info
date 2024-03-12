@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.e0b827be.css",
-    "main.js": "/static/js/main.919458dd.js",
-    "static/css/783.cd5fbf0f.chunk.css": "/static/css/783.cd5fbf0f.chunk.css",
-    "static/js/783.4ad03bdb.chunk.js": "/static/js/783.4ad03bdb.chunk.js",
-    "index.html": "/index.html",
-    "main.e0b827be.css.map": "/static/css/main.e0b827be.css.map",
-    "main.919458dd.js.map": "/static/js/main.919458dd.js.map",
-    "783.cd5fbf0f.chunk.css.map": "/static/css/783.cd5fbf0f.chunk.css.map",
-    "783.4ad03bdb.chunk.js.map": "/static/js/783.4ad03bdb.chunk.js.map"
+    "main.css": "/lol_info/static/css/main.e0b827be.css",
+    "main.js": "/lol_info/static/js/main.59eb3992.js",
+    "static/css/783.cd5fbf0f.chunk.css": "/lol_info/static/css/783.cd5fbf0f.chunk.css",
+    "static/js/783.3a94770e.chunk.js": "/lol_info/static/js/783.3a94770e.chunk.js",
+    "index.html": "/lol_info/index.html",
+    "main.e0b827be.css.map": "/lol_info/static/css/main.e0b827be.css.map",
+    "main.59eb3992.js.map": "/lol_info/static/js/main.59eb3992.js.map",
+    "783.cd5fbf0f.chunk.css.map": "/lol_info/static/css/783.cd5fbf0f.chunk.css.map",
+    "783.3a94770e.chunk.js.map": "/lol_info/static/js/783.3a94770e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e0b827be.css",
-    "static/js/main.919458dd.js"
+    "static/js/main.59eb3992.js"
   ]
 }
