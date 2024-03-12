@@ -8,7 +8,6 @@ function useWriting({ userObj }: any) {
   const [detailValue, setDetailValue] = useState("");
   const [optionValue, setOptionValue] = useState("자유");
   const navigate = useNavigate();
-  console.log(userObj);
   const addBoard = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

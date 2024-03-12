@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../scss/Community/community.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Category from "../../components/util/community/category/Category";
 import CommunitySearch from "../../components/util/community/communitySearch/CommunitySearch";
 // import CommunityPage from "../../components/util/community/communityPage/CommunityPage";
@@ -11,11 +11,14 @@ import CommunityTbody from "../../components/util/community/communityTbody/Commu
 import Loading from "../../components/loading/Loading";
 import ReactPaginate from "react-paginate";
 import usePagination from "../../hook/usePagination";
+import { useUsers } from "../../hook/users/useUsers";
+import { onAuthStateChanged } from "firebase/auth";
+import { AuthService } from "../../fbase/fbase";
 
 const Community = () => {
   const [itemOffset, setItemOffset] = useState<number>(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(10);
-
+  const navigate = useNavigate();
   const { Bring, catagorys, selected, boardList, isLoading } = useCommunity();
 
   const communitySearchSeletor = useSelector(
@@ -37,7 +40,14 @@ const Community = () => {
   };
 
   useEffect(() => {
-    Bring();
+    onAuthStateChanged(AuthService, (user) => {
+      if (user) {
+        Bring();
+      } else {
+        alert("로그인이 필요합니다.");
+        navigate("/Login");
+      }
+    });
   }, [communitySearchSeletor]);
 
   return (

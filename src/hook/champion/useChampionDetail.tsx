@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import useChampion from "./useChampion";
 
 function useChampionDetail({ setDetail }: any) {
   const dispatch = useDispatch();

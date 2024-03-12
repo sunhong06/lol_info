@@ -1,13 +1,5 @@
-import {
-  addDoc,
-  collection,
-  getDocs,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { FaComment } from "react-icons/fa";
-import { db } from "../../../../fbase/fbase";
 import Comment from "./Comment";
 import { comments } from "../../../../type/type";
 import useComment from "../../../../hook/community/useComment";
